@@ -1,39 +1,136 @@
-# QN
+# MiraiGo-Template
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+A template for MiraiGo
 
-#### 软件架构
-软件架构说明
+> v2 版本正在重写，请提出 *你的想法* 或 *你对当前设计的不满* 
+> 本菜鸡会尽量改 
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Logiase/MiraiGo-Template)](https://goreportcard.com/report/github.com/Logiase/MiraiGo-Template)
 
-#### 安装教程
+基于 [MiraiGo](https://github.com/Mrs4s/MiraiGo) 的多模块组合设计
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+包装了基础功能,同时设计了一个~~良好~~的项目结构
 
-#### 使用说明
+## 不了解go?
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+golang 极速入门
 
-#### 参与贡献
+[点我看书](https://github.com/justjavac/free-programming-books-zh_CN#go)
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 基础配置
 
+账号配置[application.yaml](./application.yaml)
+```yaml
+bot:
+  # 账号
+  account: 1234567
+  # 密码
+  password: example
+```
 
-#### 特技
+## Module 配置
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+module参考[log.go](./modules/logging/log.go)
+
+```go
+package mymodule
+
+import (
+    "aaa"
+    "bbb"
+    "MiraiGo-Template/bot"
+)
+
+var instance *Logging
+
+func init() {
+	instance = &Logging{}
+	bot.RegisterModule(instance)
+}
+
+type Logging struct {
+}
+
+// ...
+```
+
+编写自己的Module后在[app.go](./app.go)中启用Module 
+
+```go
+package main
+
+import (
+    // ...
+    
+    _ "modules/mymodule"
+)
+
+// ...
+```
+
+## 快速入门
+
+你可以克隆本项目, 或者将本项目作为依赖.
+
+在开始之前, 你需要首先生成设备文件.
+
+新建文件 `tools_test.go` , 内容如下:
+
+```go
+package main_test
+
+import (
+	"testing"
+
+	"github.com/Logiase/MiraiGo-Template/bot"
+)
+
+func TestGenDevice(t *testing.T) {
+	bot.GenRandomDevice()
+}
+```
+
+然后运行 `TestGenDevice` 来生成一份设备文件
+
+### 克隆
+
+如果你克隆本项目, 请首先更新项目依赖, 同步到协议库最新版本, 否则可能出现某些意外的bug ( 或产生新的bug )
+
+```go
+go get -u
+```
+
+### 将 [MiraiGo-Template](https://github.com/Logiase/MiraiGo-Template) 作为go module使用
+
+可参考当前 [app.go](./app.go) 将其引入
+
+使用这种方法可以引入其他小伙伴编写的第三方module
+
+## 内置 Module
+
+ - internal.logging
+ 将收到的消息按照格式输出至 os.stdout
+
+## 第三方 Module
+
+欢迎PR
+
+ - [logiase.autoreply](https://github.com/Logiase/MiraiGo-module-autoreply)
+ 按照收到的消息进行回复
+ 
+## 进阶内容 
+
+### Docker 支持
+
+参照 [Dockerfile](./Dockerfile)
+
+## 引入的第三方 go module
+
+ - [MiraiGo](https://github.com/Mrs4s/MiraiGo)
+    核心协议库
+ - [viper](https://github.com/spf13/viper)
+    用于解析配置文件，同时可监听配置文件的修改
+ - [logrus](github.com/sirupsen/logrus)
+    功能丰富的Logger
+ - [asciiart](github.com/yinghau76/go-ascii-art)
+    用于在console显示图形验证码

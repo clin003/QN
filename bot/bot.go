@@ -63,6 +63,7 @@ func Init() {
 	}
 }
 
+// GetProtocol 获取配置文件中协议项，并转换为协议const
 func GetProtocol() protocol {
 	switch viper.GetString("bot.use_protocol") {
 	case "AndroidPhone":

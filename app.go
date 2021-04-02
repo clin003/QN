@@ -12,6 +12,7 @@ import (
 
 	"github.com/spf13/pflag"
 
+	_ "gitee.com/lyhuilin/QN/modules/autoreply"
 	_ "gitee.com/lyhuilin/QN/modules/logging"
 )
 

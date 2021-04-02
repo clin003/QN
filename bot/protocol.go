@@ -5,10 +5,10 @@ import "github.com/Mrs4s/MiraiGo/client"
 type protocol int
 
 const (
-	AndroidPhone = protocol(client.AndroidPhone)
-	IPad   = protocol(client.IPad)
-	AndroidWatch = protocol(client.AndroidWatch)
-	MacOS = protocol(client.MacOS)
+	AndroidPhone = protocol(client.AndroidPhone) //1
+	IPad         = protocol(client.IPad)         //2
+	AndroidWatch = protocol(client.AndroidWatch) //3
+	MacOS        = protocol(client.MacOS)        //4
 )
 
 // UseProtocol 使用协议

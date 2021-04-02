@@ -1,0 +1,42 @@
+name: QN
+## QN的日志相关配置说明。
+# writers: 输出位置，有2个可选项：file,stdout。选择file会将日志记录到logger_file指定的日志文件中，选择stdout会将日志输出到标准输出，当然也可以两者同时选择
+# logger_level: 日志级别， DEBUG, INFO, WARN, ERROR, FATAL
+# logger_file: 日志文件
+# log_format_text: 日志的输出格式，json或者plaintext，true会输出成json格式，false会输出成非json格式
+# rollingPolicy: rotate依据，可选的有：daily, size。如果选daily则根据天进行转存，如果是size则根据大小进行转存
+# log_rotate_date: rotate转存时间，配合rollingPolicy: daily使用
+# log_rotate_size: rotate转存大小，配合rollingPolicy: size使用
+# log_backup_count:当日志文件达到转存标准时，log系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数。
+# QN的日志相关配置。
+log:
+  writers: file,stdout
+  logger_level: DEBUG
+  logger_file: log/QN.log
+  log_format_text: false
+  rollingPolicy: size
+  log_rotate_date: 1
+  log_rotate_size: 1
+  log_backup_count: 7
+
+# 机器人相关配置
+bot:
+  # 账号
+  account: 123456789
+  # 密码
+  password: xxx
+# 插件配置文件路径地址
+module:
+  # 自动回复插件的配置信息
+  autoreply:
+    # 自动回复配置文件路径
+    path: "./conf/autoreply/autoreply.yaml"
+  
+  # 慧广播插件的配置信息
+  huiguangbo:
+    # 慧广播配置文件路径
+    path: "./conf/huiguangbo/huiguangbo.yaml"
+    # 慧广播openAPI的地址
+    server_url: http://127.0.0.1:8080
+    # 慧广播openAPI对应的频道token
+    server_token: xxx

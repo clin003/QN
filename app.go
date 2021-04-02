@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/pflag"
 
 	_ "gitee.com/lyhuilin/QN/modules/autoreply"
+	_ "gitee.com/lyhuilin/QN/modules/huiguangbo"
 	_ "gitee.com/lyhuilin/QN/modules/logging"
 )
 
@@ -47,7 +48,9 @@ func main() {
 	// 使用协议
 	// 不同协议可能会有部分功能无法使用
 	// 在登陆前切换协议
-	bot.UseProtocol(bot.IPad)
+	botProtocol := bot.GetProtocol()
+	fmt.Printf("botProtocol(%v)", botProtocol)
+	bot.UseProtocol(botProtocol)
 
 	// 登录
 	bot.Login()

@@ -14,6 +14,8 @@
 !/conf
 /conf/*
 !/conf/config.simple.yaml
+!/conf/autoreply/autoreply.simple.yaml
+!/conf/huiguangbo/huiguangbo.simple.yaml
 
 device.json
 .DS_Store

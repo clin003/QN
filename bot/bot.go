@@ -14,8 +14,8 @@ import (
 
 	// "github.com/Logiase/MiraiGo-Template/config"
 	// "gitee.com/lyhuilin/QN/config"
-	"gitee.com/lyhuilin/QN/utils"
 	"gitee.com/lyhuilin/log"
+	"gitee.com/lyhuilin/util"
 	"github.com/Mrs4s/MiraiGo/client"
 	"github.com/spf13/viper"
 	// "github.com/sirupsen/logrus"
@@ -49,14 +49,32 @@ func Init() {
 		),
 		false,
 	}
-	if b, _ := utils.FileExist("./device.json"); !b {
+	if b, _ := util.IsFileExist("./device.json"); !b {
 		GenRandomDevice()
 	}
-	err := client.SystemDeviceInfo.ReadJson(utils.ReadFile("./device.json"))
+	bytes, err := util.ReadFile("./device.json")
+	if err != nil {
+		log.Fatalf(err, "device.json error")
+	}
+	err = client.SystemDeviceInfo.ReadJson(bytes)
 	if err != nil {
 		// logger.WithError(err).Panic("device.json error")
 		log.Fatalf(err, "device.json error")
 	}
+}
+
+func GetProtocol() protocol {
+	switch viper.GetString("bot.use_protocol") {
+	case "AndroidPhone":
+		return AndroidPhone
+	case "IPad":
+		return IPad
+	case "AndroidWatch":
+		return AndroidWatch
+	case "MacOS":
+		return MacOS
+	}
+	return IPad
 }
 
 // InitBot 使用 account password 进行初始化账号
@@ -75,7 +93,7 @@ func UseDevice(device []byte) error {
 // GenRandomDevice 生成随机设备信息
 func GenRandomDevice() {
 	client.GenRandomDevice()
-	b, _ := utils.FileExist("./device.json")
+	b, _ := util.IsFileExist("./device.json")
 	if b {
 		log.Warn("device.json exists, will not write device to file")
 	}
@@ -196,6 +214,10 @@ func RefreshList() {
 		log.Errorf(err, "unable to load groups list")
 	}
 	log.Infof("load %d groups", len(Instance.GroupList))
+	// for _, v := range Instance.GroupList {
+	// 	// fmt.Println(k, v.Code)
+	// 	fmt.Printf("Name(%s),Code(%d),Uin(%d)\n", v.Name, v.Code, v.Uin)
+	// }
 }
 
 // StartService 启动服务

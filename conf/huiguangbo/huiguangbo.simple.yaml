@@ -1,0 +1,13 @@
+grouplist:
+- group_name: 群1名称
+  group_id: 1
+  send_msg_enable: false
+- group_name: 群2名称
+  group_id: 2
+  send_msg_enable: true
+- group_name: "群3名称"
+  group_id: 3
+  send_msg_enable: true
+
+# 多群发送的情况下，单批发送任务的间隔时间8s=8秒，8m=8分钟
+sendersleep: 8s

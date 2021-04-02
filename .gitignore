@@ -14,7 +14,13 @@
 !/conf
 /conf/*
 !/conf/config.simple.yaml
+
+!/conf/autoreply
+/conf/autoreply/*
 !/conf/autoreply/autoreply.simple.yaml
+
+!/conf/huiguangbo/
+/conf/huiguangbo/*
 !/conf/huiguangbo/huiguangbo.simple.yaml
 
 device.json

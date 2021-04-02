@@ -1,0 +1,16 @@
+# 单行文本
+hello: world
+
+# 包含空格
+'whats your name': 'My name is autoreply'
+
+# 多行文本
+'coffee': |
+  ┌───┐
+  │ ██  ├╮
+  │ 拿铁  ├╯
+  │ ██  │
+  ╰───╯
+
+# 图片
+'img': "https://gd3.alicdn.com/imgextra/i3/2867498850/O1CN01BSwM1g2FFLq43REVe_!!2867498850.jpg"

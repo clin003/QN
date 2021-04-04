@@ -14,7 +14,7 @@ import (
 	"gitee.com/lyhuilin/util"
 
 	"gitee.com/lyhuilin/open_api/model/feedmsg"
-	"github.com/Mrs4s/MiraiGo/client"
+	// "github.com/Mrs4s/MiraiGo/client"
 	"github.com/Mrs4s/MiraiGo/message"
 	"gopkg.in/yaml.v2"
 )
@@ -68,44 +68,44 @@ func (a *hgb) Serve(b *bot.Bot) {
 	fmt.Println("huiguangbo Serve")
 }
 
-func (a *hgb) ServeEx(b *bot.Bot) {
-	b.OnGroupMessage(func(c *client.QQClient, msg *message.GroupMessage) {
-		out := msg.ToString()
-		if out == "" {
-			return
-		}
-		m := message.NewSendingMessage().Append(message.NewText(out))
-		if strings.Contains(out, "http") {
-			imgBin, err := util.GetUrlToByte(out)
-			if err == nil {
+// func (a *hgb) ServeEx(b *bot.Bot) {
+// 	b.OnGroupMessage(func(c *client.QQClient, msg *message.GroupMessage) {
+// 		out := msg.ToString()
+// 		if out == "" {
+// 			return
+// 		}
+// 		m := message.NewSendingMessage().Append(message.NewText(out))
+// 		if strings.Contains(out, "http") {
+// 			imgBin, err := util.GetUrlToByte(out)
+// 			if err == nil {
 
-				// m = message.NewSendingMessage().Append(message.NewImage(imgBin))
-				util.WriteFile("./img.jpg", imgBin)
-				// c.UploadGroupImageByFile()
-				// bytes.NewReader()
-				gm, err := c.UploadGroupImage(msg.GroupCode, bytes.NewReader(imgBin))
-				if err != nil {
-					log.Errorf(err, "UploadGroupImage")
-					return
-				}
-				m.Append(gm)
-				c.SendGroupMessage(msg.GroupCode, m)
-				return
-			}
-		}
-		// m := message.NewSendingMessage().Append(message.NewText(out))
-		c.SendGroupMessage(msg.GroupCode, m)
-	})
+// 				// m = message.NewSendingMessage().Append(message.NewImage(imgBin))
+// 				util.WriteFile("./img.jpg", imgBin)
+// 				// c.UploadGroupImageByFile()
+// 				// bytes.NewReader()
+// 				gm, err := c.UploadGroupImage(msg.GroupCode, bytes.NewReader(imgBin))
+// 				if err != nil {
+// 					log.Errorf(err, "UploadGroupImage")
+// 					return
+// 				}
+// 				m.Append(gm)
+// 				c.SendGroupMessage(msg.GroupCode, m)
+// 				return
+// 			}
+// 		}
+// 		// m := message.NewSendingMessage().Append(message.NewText(out))
+// 		c.SendGroupMessage(msg.GroupCode, m)
+// 	})
 
-	b.OnPrivateMessage(func(c *client.QQClient, msg *message.PrivateMessage) {
-		out := msg.ToString()
-		if out == "" {
-			return
-		}
-		m := message.NewSendingMessage().Append(message.NewText(out))
-		c.SendPrivateMessage(msg.Sender.Uin, m)
-	})
-}
+// 	b.OnPrivateMessage(func(c *client.QQClient, msg *message.PrivateMessage) {
+// 		out := msg.ToString()
+// 		if out == "" {
+// 			return
+// 		}
+// 		m := message.NewSendingMessage().Append(message.NewText(out))
+// 		c.SendPrivateMessage(msg.Sender.Uin, m)
+// 	})
+// }
 func (a *hgb) Start(bot *bot.Bot) {
 	robot = bot
 	go InitHGBConf()

@@ -22,6 +22,31 @@ var (
 )
 
 func main() {
+	// http://www.network-science.de/ascii/
+	// https://www.jianshu.com/p/fca56d635091
+	fmt.Printf(`
+                                            
+     QQQQQQQQQ      NNNNNNNN        NNNNNNNN
+   QQ:::::::::QQ    N:::::::N       N::::::N
+ QQ:::::::::::::QQ  N::::::::N      N::::::N
+Q:::::::QQQ:::::::Q N:::::::::N     N::::::N
+Q::::::O   Q::::::Q N::::::::::N    N::::::N
+Q:::::O     Q:::::Q N:::::::::::N   N::::::N
+Q:::::O     Q:::::Q N:::::::N::::N  N::::::N
+Q:::::O     Q:::::Q N::::::N N::::N N::::::N
+Q:::::O     Q:::::Q N::::::N  N::::N:::::::N
+Q:::::O     Q:::::Q N::::::N   N:::::::::::N
+Q:::::O  QQQQ:::::Q N::::::N    N::::::::::N
+Q::::::O Q::::::::Q N::::::N     N:::::::::N
+Q:::::::QQ::::::::Q N::::::N      N::::::::N
+ QQ::::::::::::::Q  N::::::N       N:::::::N
+   QQ:::::::::::Q   N::::::N        N::::::N
+     QQQQQQQQ::::QQ NNNNNNNN         NNNNNNN
+             Q:::::Q                        
+              QQQQQQ                        v%s
+                                                                                                               
+`, API_VERSION)
+	return
 	defer func() {
 		fmt.Scanln()
 	}()

@@ -163,7 +163,10 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 	// 	return
 	// }
 	// robot.SendGroupMessage(groupCode, msg)
-
+	if !robot.Online {
+		log.Debugf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
+		// robot.Login()
+	}
 	isConverMsg := false
 	for _, v := range hgbConf.GroupList {
 		// if !v.IsFeed {

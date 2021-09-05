@@ -2,7 +2,7 @@ package autoreply
 
 import (
 	"bytes"
-	"fmt"
+	// "fmt"
 	"strings"
 	"sync"
 
@@ -146,24 +146,24 @@ func autoreply(in string) string {
 	return out
 }
 
-func autoreplyEx(in string) (retMsg *message.SendingMessage, err error) {
-	out, ok := tem[in]
-	if !ok {
-		err = fmt.Errorf("no ar key")
-		return nil, err
-	}
-	if strings.Contains(out, "http") {
-		imgBin, err := util.GetUrlToByte(out)
-		if err != nil {
-			retMsg = message.NewSendingMessage().Append(message.NewText(out)) // message.NewText(out)
-			return retMsg, err
-		}
-		// fmt.Println(imgBin)
-		// retMsg = message.NewSendingMessage().Append(message.NewText(out))
-		retMsg = message.NewSendingMessage().Append(message.NewImage(imgBin))
-		util.WriteFile("./img.jpg", imgBin)
-		return retMsg, err
-	}
-	retMsg = message.NewSendingMessage().Append(message.NewText(out))
-	return
-}
+// func autoreplyEx(in string) (retMsg *message.SendingMessage, err error) {
+// 	out, ok := tem[in]
+// 	if !ok {
+// 		err = fmt.Errorf("no ar key")
+// 		return nil, err
+// 	}
+// 	if strings.Contains(out, "http") {
+// 		imgBin, err := util.GetUrlToByte(out)
+// 		if err != nil {
+// 			retMsg = message.NewSendingMessage().Append(message.NewText(out)) // message.NewText(out)
+// 			return retMsg, err
+// 		}
+// 		// fmt.Println(imgBin)
+// 		// retMsg = message.NewSendingMessage().Append(message.NewText(out))
+// 		retMsg = message.NewSendingMessage().Append(message.Image NewImage(imgBin))
+// 		util.WriteFile("./img.jpg", imgBin)
+// 		return retMsg, err
+// 	}
+// 	retMsg = message.NewSendingMessage().Append(message.NewText(out))
+// 	return
+// }

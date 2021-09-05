@@ -46,7 +46,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
               QQQQQQ                        v%s
                                                                                                                
 `, API_VERSION)
-	return
+	// return
 	defer func() {
 		fmt.Scanln()
 	}()

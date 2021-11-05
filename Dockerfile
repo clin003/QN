@@ -9,12 +9,12 @@ COPY . .
 RUN CGO_ENABLED=0 \
     GOOS=linux \
     GOARCH=amd64 \
-    go build -o MiraiGo .
+    go build -o QN .
 
 FROM debian:buster as runner
 
 WORKDIR /app
 
-COPY --from=builder /app/MiraiGo .
+COPY --from=builder /app/QN .
 
-ENTRYPOINT ["./MiraiGo"]
+ENTRYPOINT ["./QN"]

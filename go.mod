@@ -7,7 +7,7 @@ require (
 	gitee.com/lyhuilin/log v0.0.0-20210402052422-bfc045fae7b8
 	gitee.com/lyhuilin/open_api v0.0.0-20210805100537-852b087c88cb
 	gitee.com/lyhuilin/util v0.0.0-20210624005238-e6afba2016e0
-	github.com/Mrs4s/MiraiGo v0.0.0-20210825081608-fd9a6657fa47
+	github.com/Mrs4s/MiraiGo v0.0.0-20211101184540-c518dfcf1557
 	github.com/gorilla/websocket v1.4.2
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.8.1
@@ -26,6 +26,7 @@ require (
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
+	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
@@ -41,13 +42,14 @@ require (
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/tidwall/gjson v1.8.1 // indirect
-	github.com/tidwall/match v1.0.3 // indirect
-	github.com/tidwall/pretty v1.1.0 // indirect
+	github.com/tidwall/gjson v1.11.0 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
+	golang.org/x/net v0.0.0-20211104170005-ce137452f963 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
+	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
 	golang.org/x/text v0.3.6 // indirect
-	google.golang.org/protobuf v1.26.0 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )

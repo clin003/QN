@@ -8,4 +8,27 @@ cp -f device.json /tmp/device.json
 cp -f session.token /tmp/session.token
 
 
-./QN -w="/tmp/" -c="/tmp/config.yaml"
+#./QN -w="/tmp/" -c="/tmp/config.yaml"
+./QN -w="/tmp/" -c="/tmp/config.yaml"  &>/dev/null &
+
+#! /bin/bash
+set -euo pipefail
+
+# 初始化 - 加载函数文件
+source ./"$(echo $_HANDLER | cut -d. -f1).sh"
+
+# 初始化完成，访问运行时API上报就绪状态
+curl -d " " -X POST -s "http://$SCF_RUNTIME_API:$SCF_RUNTIME_API_PORT/runtime/init/ready"
+
+### 循环监听处理事件调用
+while true
+do
+  HEADERS="$(mktemp)"
+  # 长轮询获取事件
+  EVENT_DATA=$(curl -sS -LD "$HEADERS" -X GET -s "http://$SCF_RUNTIME_API:$SCF_RUNTIME_API_PORT/runtime/invocation/next")
+  # 调用函数处理事件
+  RESPONSE=$($(echo "$_HANDLER" | cut -d. -f2) "$EVENT_DATA")
+  # 推送函数处理结果
+  curl -X POST -s "http://$SCF_RUNTIME_API:$SCF_RUNTIME_API_PORT/runtime/invocation/response"  -d "$RESPONSE"
+done
+

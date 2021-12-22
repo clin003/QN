@@ -101,13 +101,23 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 
 	go func() {
 		r := gin.Default()
-		r.GET("/ping", func(c *gin.Context) {
-			c.JSON(200, gin.H{
-				"message": "pong",
-				"Online":  bot.Instance.Online.Load(),
-			})
-		})
-		r.Run() // 监听并在 0.0.0.0:8080 上启动服务
+		r.GET("/ping",
+			func(c *gin.Context) {
+				c.JSON(200, gin.H{
+					"message": "pong",
+					"Online":  bot.Instance.Online.Load(),
+				})
+			},
+		)
+		r.GET("/",
+			func(c *gin.Context) {
+				c.JSON(200, gin.H{
+					"message": "HelloWorld",
+					"Online":  bot.Instance.Online.Load(),
+				})
+			},
+		)
+		r.Run(":80") // 监听并在 0.0.0.0:8080 上启动服务
 	}()
 
 	<-global.SetupMainSignalHandler()

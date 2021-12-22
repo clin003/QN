@@ -1,7 +1,7 @@
 package main
 
 const (
-	API_VERSION = "0.2"
+	API_VERSION = "0.3.0"
 	// http://www.network-science.de/ascii/
 	// http://patorjk.com/software/taag
 	// https://www.jianshu.com/p/fca56d635091

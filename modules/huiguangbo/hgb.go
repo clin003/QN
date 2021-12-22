@@ -163,7 +163,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 	// 	return
 	// }
 	// robot.SendGroupMessage(groupCode, msg)
-	if !robot.Online {
+	if !robot.Online.Load() {
 		log.Debugf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
 		// robot.Login()
 	}
@@ -198,7 +198,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 
 func InitHGBConf() {
 	for {
-		if robot.Online {
+		if robot.Online.Load() {
 			break
 		}
 		time.Sleep(10 * time.Second)

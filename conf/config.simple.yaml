@@ -25,6 +25,8 @@ bot:
   account: 123456789
   # 密码
   password: xxx
+  # 机器人使用协议：AndroidPhone IPad AndroidWatch MacOS
+  use_protocol: IPad
 # 插件配置文件路径地址
 module:
   # 自动回复插件的配置信息

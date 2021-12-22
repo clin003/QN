@@ -62,7 +62,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 	if err := config.Init(*cfg); err != nil {
 		panic(err)
 	}
-	log.Info("config 初始化完成")
+	log.Info("QN配置 初始化完成")
 
 	// 快速初始化
 	bot.Init()
@@ -74,7 +74,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 	// 不同协议可能会有部分功能无法使用
 	// 在登陆前切换协议
 	botProtocol := bot.GetProtocol()
-	fmt.Printf("botProtocol(%v)", botProtocol)
+	fmt.Printf("使用协议: %v", botProtocol)
 	bot.UseProtocol(botProtocol)
 
 	// 登录

@@ -14,7 +14,6 @@ import (
 	"gitee.com/lyhuilin/util"
 
 	"gitee.com/lyhuilin/open_api/model/feedmsg"
-	// "github.com/Mrs4s/MiraiGo/client"
 	"github.com/Mrs4s/MiraiGo/message"
 	"gopkg.in/yaml.v2"
 )
@@ -68,44 +67,6 @@ func (a *hgb) Serve(b *bot.Bot) {
 	fmt.Println("huiguangbo Serve")
 }
 
-// func (a *hgb) ServeEx(b *bot.Bot) {
-// 	b.OnGroupMessage(func(c *client.QQClient, msg *message.GroupMessage) {
-// 		out := msg.ToString()
-// 		if out == "" {
-// 			return
-// 		}
-// 		m := message.NewSendingMessage().Append(message.NewText(out))
-// 		if strings.Contains(out, "http") {
-// 			imgBin, err := util.GetUrlToByte(out)
-// 			if err == nil {
-
-// 				// m = message.NewSendingMessage().Append(message.NewImage(imgBin))
-// 				util.WriteFile("./img.jpg", imgBin)
-// 				// c.UploadGroupImageByFile()
-// 				// bytes.NewReader()
-// 				gm, err := c.UploadGroupImage(msg.GroupCode, bytes.NewReader(imgBin))
-// 				if err != nil {
-// 					log.Errorf(err, "UploadGroupImage")
-// 					return
-// 				}
-// 				m.Append(gm)
-// 				c.SendGroupMessage(msg.GroupCode, m)
-// 				return
-// 			}
-// 		}
-// 		// m := message.NewSendingMessage().Append(message.NewText(out))
-// 		c.SendGroupMessage(msg.GroupCode, m)
-// 	})
-
-// 	b.OnPrivateMessage(func(c *client.QQClient, msg *message.PrivateMessage) {
-// 		out := msg.ToString()
-// 		if out == "" {
-// 			return
-// 		}
-// 		m := message.NewSendingMessage().Append(message.NewText(out))
-// 		c.SendPrivateMessage(msg.Sender.Uin, m)
-// 	})
-// }
 func (a *hgb) Start(bot *bot.Bot) {
 	robot = bot
 	go InitHGBConf()
@@ -120,10 +81,6 @@ func (a *hgb) Stop(bot *bot.Bot, wg *sync.WaitGroup) {
 // 将richMsg消息转化为SendingMessage
 func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) (retMsg *message.SendingMessage, err error) {
 	m := message.NewSendingMessage()
-	// switch msgType:=richMsg.Msgtype{
-	// 	case "rich":
-	// 	default:
-	// }
 	if richMsg.Msgtype == "rich" {
 		if len(richMsg.Text.Content) > 0 {
 			m.Append(message.NewText(richMsg.Text.Content))
@@ -137,11 +94,9 @@ func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) 
 				gm, err := robot.UploadGroupImage(groupCode, bytes.NewReader(imgBin))
 				if err != nil {
 					log.Errorf(err, "UploadGroupImage(%d)", groupCode)
-					// return nil, err
 				} else {
 					m.Append(gm)
 				}
-
 			}
 		}
 	}
@@ -156,23 +111,12 @@ func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) 
 	return nil, err
 }
 func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
-	// var groupCode int64
-	// groupCode = 568661598
-	// msg, err := richMsgToSendingMessage(groupCode, richMsg)
-	// if err != nil {
-	// 	return
-	// }
-	// robot.SendGroupMessage(groupCode, msg)
+
 	if !robot.Online.Load() {
 		log.Debugf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
-		// robot.Login()
 	}
 	isConverMsg := false
 	for _, v := range hgbConf.GroupList {
-		// if !v.IsFeed {
-		// 	continue
-		// }
-
 		groupCode := v.Id
 		msg, err := richMsgToSendingMessage(groupCode, richMsg)
 		if err != nil {
@@ -191,7 +135,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 			}
 			break
 		}
-		// robot.SendGroupMessage(groupCode, msg)
+
 	}
 
 }

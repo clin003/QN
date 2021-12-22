@@ -1,3 +1,6 @@
+# 默认配置模版：https://gitee.com/lyhuilin/openAPI
+# 慧林淘友openAPI基本配置指南 https://www.yuque.com/docs/share/9bb68b8f-ff00-4dcd-93d0-be692e43213f
+# 正确配置文件名为：config.yaml
 name: QN
 ## QN的日志相关配置说明。
 # writers: 输出位置，有2个可选项：file,stdout。选择file会将日志记录到logger_file指定的日志文件中，选择stdout会将日志输出到标准输出，当然也可以两者同时选择
@@ -12,6 +15,7 @@ name: QN
 log:
   writers: file,stdout
   logger_level: DEBUG
+  # 无服务器 云函数部署参考 /tmp/QN.log
   logger_file: log/QN.log
   log_format_text: false
   rollingPolicy: size
@@ -25,18 +29,20 @@ bot:
   account: 123456789
   # 密码
   password: xxx
-  # 机器人使用协议：AndroidPhone IPad AndroidWatch MacOS
+  # 机器人使用协议：AndroidPhone IPad AndroidWatch MacOS QiDian
   use_protocol: IPad
 # 插件配置文件路径地址
 module:
   # 自动回复插件的配置信息
   autoreply:
     # 自动回复配置文件路径
+    # 无服务器 云函数部署参考 /tmp/autoreply.yaml
     path: "./conf/autoreply/autoreply.yaml"
   
   # 慧广播插件的配置信息
   huiguangbo:
     # 慧广播配置文件路径
+    # 无服务器 云函数部署参考 /tmp/huiguangbo.yaml
     path: "./conf/huiguangbo/huiguangbo.yaml"
     # 慧广播openAPI的地址
     server_url: http://127.0.0.1:8080

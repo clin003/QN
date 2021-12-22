@@ -5,10 +5,14 @@ import (
 	"os"
 	"os/signal"
 
+	"gitee.com/lyhuilin/QN/env"
+
+	"gitee.com/lyhuilin/QN/constvar"
+
 	"gitee.com/lyhuilin/QN/bot"
 
-	"gitee.com/lyhuilin/config"
 	"gitee.com/lyhuilin/log"
+	"gitee.com/lyhuilin/pkg/config"
 
 	"github.com/spf13/pflag"
 
@@ -18,7 +22,9 @@ import (
 )
 
 var (
-	cfg = pflag.StringP("config", "c", "", "config file path")
+	cfg     = pflag.StringP("config", "c", "", "配置文件地址")
+	version = pflag.BoolP("version", "v", false, "程序版本号")
+	workdir = pflag.StringP("workdir", "w", "", "QN 工作目录")
 )
 
 func main() {
@@ -45,7 +51,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
              Q:::::Q                        
               QQQQQQ                        v%s
                                                                                                                
-`, API_VERSION)
+`, constvar.APP_VERSION)
 	// return
 	defer func() {
 		fmt.Scanln()
@@ -55,10 +61,18 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 			log.Debugf("run time panic:%v\n", err)
 		}
 	}()
-	// cfg := pflag.StringP("config", "c", "", "config file path")
-	pflag.Parse()
 
-	//init config
+	pflag.Parse()
+	if *version {
+		fmt.Println(constvar.APP_VERSION)
+		return
+	}
+	fmt.Printf("%s (%v) \n%s\n", constvar.APP_NAME, constvar.APP_VERSION, constvar.APPDesc())
+	if len(*workdir) > 0 {
+		env.SetWorkdir(*workdir)
+	}
+
+	// 初始化配置信息
 	if err := config.Init(*cfg); err != nil {
 		panic(err)
 	}

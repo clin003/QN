@@ -2,6 +2,9 @@ package bot
 
 import (
 	"bufio"
+
+	"gitee.com/lyhuilin/QN/env"
+
 	// "bytes"
 	// "fmt"
 	// "image"
@@ -50,17 +53,18 @@ func Init() {
 		),
 		false,
 	}
-	if b, _ := util.IsFileExist("./device.json"); !b {
+	deviceFilePath := env.GetDeviceFilePath()
+	if b, _ := util.IsFileExist(deviceFilePath); !b {
 		log.Warnf("虚拟设备信息不存在, 将自动生成随机设备.")
 		GenRandomDevice()
 	}
-	bytes, err := util.ReadFile("./device.json")
+	bytes, err := util.ReadFile(deviceFilePath)
 	if err != nil {
-		log.Fatalf(err, "读取虚拟设备信息 device.json 失败")
+		log.Fatalf(err, "读取虚拟设备信息 %s 失败", deviceFilePath)
 	}
 	err = client.SystemDeviceInfo.ReadJson(bytes)
 	if err != nil {
-		log.Fatalf(err, "加载虚拟设备信息 device.json 失败")
+		log.Fatalf(err, "加载虚拟设备信息 %s 失败", deviceFilePath)
 	}
 }
 
@@ -97,28 +101,31 @@ func UseDevice(device []byte) error {
 // GenRandomDevice 生成随机设备信息
 func GenRandomDevice() {
 	client.GenRandomDevice()
-	b, _ := util.IsFileExist("./device.json")
+	deviceFilePath := env.GetDeviceFilePath()
+	b, _ := util.IsFileExist(deviceFilePath)
 	if b {
 		log.Warn("虚拟设备信息已存在，放弃重新生成.")
 	}
-	err := ioutil.WriteFile("device.json", client.SystemDeviceInfo.ToJson(), os.FileMode(0755))
+	err := ioutil.WriteFile(deviceFilePath, client.SystemDeviceInfo.ToJson(), os.FileMode(0755))
 	if err != nil {
-		log.Errorf(err, "虚拟设备信息写入 device.json 失败 ")
+		log.Errorf(err, "虚拟设备信息写入 %s 失败 ", deviceFilePath)
 	}
 }
 
 // SaveToken 会话缓存
 func SaveToken() {
 	AccountToken := Instance.GenToken()
-	_ = os.WriteFile("session.token", AccountToken, 0o644)
+	sessionFilePath := env.GetSessionFilePath()
+	_ = os.WriteFile(sessionFilePath, AccountToken, 0o644)
 }
 
 // Login 登录
 func Login() error {
 	// 存在token缓存的情况快速恢复会话
-	if exist, _ := util.IsFileExist("./session.token"); exist {
+	sessionFilePath := env.GetSessionFilePath()
+	if exist, _ := util.IsFileExist(sessionFilePath); exist {
 		log.Infof("检测到会话缓存, 尝试快速恢复登录")
-		token, err := os.ReadFile("./session.token")
+		token, err := os.ReadFile(sessionFilePath)
 		if err == nil {
 			r := binary.NewReader(token)
 			cu := r.ReadInt64()
@@ -130,14 +137,14 @@ func Login() error {
 					log.Warnf("请选择: (5秒后自动选1)")
 					text := readLineTimeout(time.Second*5, "1")
 					if text == "2" {
-						_ = os.Remove("session.token")
+						_ = os.Remove(sessionFilePath)
 						log.Infof("会话缓存已删除.")
 						os.Exit(0)
 					}
 				}
 			}
 			if err = Instance.TokenLogin(token); err != nil {
-				_ = os.Remove("session.token")
+				_ = os.Remove(sessionFilePath)
 				log.Warnf("恢复会话失败: %v , 尝试使用正常流程登录.", err)
 				time.Sleep(time.Second)
 				Instance.Disconnect()
@@ -163,99 +170,6 @@ func Login() error {
 		return QrcodeLogin()
 	}
 
-	// resp, err := Instance.Login()
-	// console := bufio.NewReader(os.Stdin)
-
-	// for {
-	// 	if err != nil {
-	// 		// logger.WithError(err).Fatal("unable to login")
-	// 		log.Errorf(err, "unable to login")
-	// 	}
-
-	// 	var text string
-	// 	if !resp.Success {
-	// 		switch resp.Error {
-
-	// 		case client.NeedCaptcha:
-	// 			img, _, _ := image.Decode(bytes.NewReader(resp.CaptchaImage))
-	// 			fmt.Println(asc2art.New("image", img).Art)
-	// 			fmt.Print("please input captcha: ")
-	// 			text, _ := console.ReadString('\n')
-	// 			resp, err = Instance.SubmitCaptcha(strings.ReplaceAll(text, "\n", ""), resp.CaptchaSign)
-	// 			continue
-
-	// 		case client.UnsafeDeviceError:
-	// 			fmt.Printf("device lock -> %v\n", resp.VerifyUrl)
-	// 			os.Exit(4)
-
-	// 		case client.SMSNeededError:
-	// 			fmt.Println("device lock enabled, Need SMS Code")
-	// 			fmt.Printf("Send SMS to %s ? (yes)", resp.SMSPhone)
-	// 			t, _ := console.ReadString('\n')
-	// 			t = strings.TrimSpace(t)
-	// 			if t != "yes" {
-	// 				os.Exit(2)
-	// 			}
-	// 			if !Instance.RequestSMS() {
-	// 				// logger.Warnf("unable to request SMS Code")
-	// 				log.Warnf("unable to request SMS Code")
-	// 				os.Exit(2)
-	// 			}
-	// 			log.Warn("please input SMS Code: ")
-	// 			text, _ = console.ReadString('\n')
-	// 			resp, err = Instance.SubmitSMS(strings.ReplaceAll(strings.ReplaceAll(text, "\n", ""), "\r", ""))
-	// 			continue
-
-	// 		case client.TooManySMSRequestError:
-	// 			fmt.Printf("too many SMS request, please try later.\n")
-	// 			os.Exit(6)
-
-	// 		case client.SMSOrVerifyNeededError:
-	// 			fmt.Println("device lock enabled, choose way to verify:")
-	// 			fmt.Println("1. Send SMS Code to ", resp.SMSPhone)
-	// 			fmt.Println("2. Scan QR Code")
-	// 			fmt.Print("input (1,2):")
-	// 			text, _ = console.ReadString('\n')
-	// 			text = strings.TrimSpace(text)
-	// 			switch text {
-	// 			case "1":
-	// 				if !Instance.RequestSMS() {
-	// 					fmt.Println("unable to request SMS Code")
-	// 					os.Exit(2)
-	// 				}
-	// 				fmt.Print("please input SMS Code: ")
-	// 				text, _ = console.ReadString('\n')
-	// 				resp, err = Instance.SubmitSMS(strings.ReplaceAll(strings.ReplaceAll(text, "\n", ""), "\r", ""))
-	// 				continue
-	// 			case "2":
-	// 				fmt.Printf("device lock -> %v\n", resp.VerifyUrl)
-	// 				os.Exit(2)
-	// 			default:
-	// 				fmt.Println("invalid input")
-	// 				os.Exit(2)
-	// 			}
-
-	// 		case client.SliderNeededError:
-	// 			if client.SystemDeviceInfo.Protocol == client.AndroidPhone {
-	// 				fmt.Println("Android Phone Protocol DO NOT SUPPORT Slide verify")
-	// 				fmt.Println("please use other protocol")
-	// 				os.Exit(2)
-	// 			}
-	// 			Instance.AllowSlider = false
-	// 			Instance.Disconnect()
-	// 			resp, err = Instance.Login()
-	// 			continue
-
-	// 		case client.OtherLoginError, client.UnknownLoginError:
-	// 			log.Fatalf(nil, "login failed: %v", resp.ErrorMessage)
-	// 		}
-
-	// 	}
-
-	// 	break
-	// }
-
-	// log.Infof("bot login: %s", Instance.Nickname)
 }
 
 // CommonLogin 普通账号密码登录
@@ -277,12 +191,13 @@ func QrcodeLogin() error {
 	// if err != nil {
 	// 	return err
 	// }
-	_ = os.WriteFile("qrcode.png", rsp.ImageData, 0o644)
-	defer func() { _ = os.Remove("qrcode.png") }()
+	qrcodeFilePath := env.GetQrcodeFilePath()
+	_ = os.WriteFile(qrcodeFilePath, rsp.ImageData, 0o644)
+	defer func() { _ = os.Remove(qrcodeFilePath) }()
 	if Instance.Uin != 0 {
-		log.Infof("请使用账号 %v 登录手机QQ扫描二维码 (qrcode.png) : ", Instance.Uin)
+		log.Infof("请使用账号 %v 登录手机QQ扫描二维码 (%s) : ", Instance.Uin, qrcodeFilePath)
 	} else {
-		log.Infof("请使用手机QQ扫描二维码 (qrcode.png) : ")
+		log.Infof("请使用手机QQ扫描二维码 (%s) : ", qrcodeFilePath)
 	}
 	time.Sleep(time.Second)
 	// qrcodeTerminal.New().Get(fi.Content).Print()
@@ -367,10 +282,11 @@ func loginResponseProcessor(res *client.LoginResponse) error {
 			return QrcodeLogin()
 		case client.NeedCaptcha:
 			log.Warnf("登录需要验证码.")
-			_ = os.WriteFile("captcha.jpg", res.CaptchaImage, 0o644)
-			log.Warnf("请输入验证码 (captcha.jpg)： (Enter 提交)")
+			captchaFilePath := env.GetCaptchaFilePath()
+			_ = os.WriteFile(captchaFilePath, res.CaptchaImage, 0o644)
+			log.Warnf("请输入验证码 (%s)： (Enter 提交)", captchaFilePath)
 			text = readLine()
-			_ = os.Remove("captcha.jpg")
+			_ = os.Remove(captchaFilePath)
 			res, err = Instance.SubmitCaptcha(text, res.CaptchaSign)
 			continue
 		case client.SMSNeededError:

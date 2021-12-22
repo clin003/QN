@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "Start QN~~~"
+
+cp -f config.yaml /tmp/config.yaml
+cp -f autoreply.yaml /tmp/autoreply.yaml
+cp -f huiguangbo.yaml /tmp/huiguangbo.yaml
+cp -f device.json /tmp/device.json
+cp -f session.token /tmp/session.token
+
+
+./QN -w="/tmp/" -c="/tmp/config.yaml"

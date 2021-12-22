@@ -78,7 +78,11 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 	bot.UseProtocol(botProtocol)
 
 	// 登录
-	bot.Login()
+	if err := bot.Login(); err != nil {
+		log.Errorf(err, "登录出错了")
+	} else {
+		bot.SaveToken()
+	}
 
 	// 刷新好友列表，群列表
 	bot.RefreshList()

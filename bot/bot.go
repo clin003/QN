@@ -345,13 +345,13 @@ func RefreshList() {
 	if err != nil {
 		log.Errorf(err, "刷新好友列表失败")
 	}
-	log.Infof("拉取到 %d 好友", len(Instance.FriendList))
+	log.Infof("共加载 %d 个好友", len(Instance.FriendList))
 	log.Info("开始刷新群列表")
 	err = Instance.ReloadGroupList()
 	if err != nil {
 		log.Errorf(err, "刷新群列表失败")
 	}
-	log.Infof("拉取到 %d 群", len(Instance.GroupList))
+	log.Infof("共加载 %d 个群", len(Instance.GroupList))
 	// for _, v := range Instance.GroupList {
 	// 	// fmt.Println(k, v.Code)
 	// 	fmt.Printf("Name(%s),Code(%d),Uin(%d)\n", v.Name, v.Code, v.Uin)

@@ -5,15 +5,14 @@ import (
 	"os"
 	"os/signal"
 
-	"gitee.com/lyhuilin/QN/env"
-
-	"gitee.com/lyhuilin/QN/constvar"
-
 	"gitee.com/lyhuilin/QN/bot"
-
+	"gitee.com/lyhuilin/QN/constvar"
+	"gitee.com/lyhuilin/QN/env"
+	"gitee.com/lyhuilin/QN/global"
 	"gitee.com/lyhuilin/log"
 	"gitee.com/lyhuilin/pkg/config"
 
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
 
 	_ "gitee.com/lyhuilin/QN/modules/autoreply"
@@ -97,9 +96,21 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 	} else {
 		bot.SaveToken()
 	}
-
 	// 刷新好友列表，群列表
 	bot.RefreshList()
+
+	go func() {
+		r := gin.Default()
+		r.GET("/ping", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"message": "pong",
+				"Online":  bot.Instance.Online.Load(),
+			})
+		})
+		r.Run() // 监听并在 0.0.0.0:8080 上启动服务
+	}()
+
+	<-global.SetupMainSignalHandler()
 
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, os.Interrupt, os.Kill)

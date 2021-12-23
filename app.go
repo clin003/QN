@@ -5,6 +5,8 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/spf13/viper"
+
 	"gitee.com/lyhuilin/QN/bot"
 	"gitee.com/lyhuilin/QN/constvar"
 	"gitee.com/lyhuilin/QN/env"
@@ -117,7 +119,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 				})
 			},
 		)
-		r.Run(":80") // 监听并在 0.0.0.0:8080 上启动服务
+		r.Run(viper.GetString("addr")) // 监听并在 0.0.0.0:8080 上启动服务
 	}()
 
 	<-global.SetupMainSignalHandler()

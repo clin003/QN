@@ -6,6 +6,8 @@ import (
 	"os/signal"
 	"time"
 
+	"gitee.com/lyhuilin/QN/utils"
+
 	"github.com/spf13/viper"
 
 	"gitee.com/lyhuilin/QN/bot"
@@ -15,7 +17,7 @@ import (
 	"gitee.com/lyhuilin/log"
 	"gitee.com/lyhuilin/pkg/config"
 
-	"github.com/gin-gonic/gin"
+	// "github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
 
 	_ "gitee.com/lyhuilin/QN/modules/autoreply"
@@ -106,27 +108,38 @@ func main() {
 	bot.RefreshList()
 
 	go func() {
-		r := gin.Default()
-		r.GET("/ping",
-			func(c *gin.Context) {
-				c.JSON(200, gin.H{
-					"message": "pong",
-					"Online":  bot.Instance.Online.Load(),
-					"data":    constvar.APP_VERSION,
-				})
-			},
-		)
-		r.GET("/",
-			func(c *gin.Context) {
-				c.JSON(200, gin.H{
-					"message": "HelloWorld",
-					"Online":  bot.Instance.Online.Load(),
-					"data":    constvar.APPDesc(),
-				})
-			},
-		)
-		r.Run(viper.GetString("addr")) // 监听并在 0.0.0.0:8080 上启动服务
+		for {
+			botid := fmt.Sprintf("%d", bot.Instance.Uin)
+			res, err := utils.UpdateRobotStatToMyAdmin(botid, bot.Instance.Online.Load())
+			if err != nil {
+				log.Errorf(err, "更新机器人状态到myAdmin，出错啦", res)
+			}
+			time.Sleep(10 * time.Minute)
+		}
 	}()
+
+	// go func() {
+	// 	r := gin.Default()
+	// 	r.GET("/ping",
+	// 		func(c *gin.Context) {
+	// 			c.JSON(200, gin.H{
+	// 				"message": "pong",
+	// 				"Online":  bot.Instance.Online.Load(),
+	// 				"data":    constvar.APP_VERSION,
+	// 			})
+	// 		},
+	// 	)
+	// 	r.GET("/",
+	// 		func(c *gin.Context) {
+	// 			c.JSON(200, gin.H{
+	// 				"message": "HelloWorld",
+	// 				"Online":  bot.Instance.Online.Load(),
+	// 				"data":    constvar.APPDesc(),
+	// 			})
+	// 		},
+	// 	)
+	// 	r.Run(viper.GetString("addr")) // 监听并在 0.0.0.0:8080 上启动服务
+	// }()
 
 	<-global.SetupMainSignalHandler()
 

@@ -120,6 +120,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 		groupCode := v.Id
 		msg, err := richMsgToSendingMessage(groupCode, richMsg)
 		if err != nil {
+			log.Errorf(err, "消息处理失败(%d): %v", groupCode, richMsg.ToString())
 			continue
 		} else {
 			isConverMsg = true

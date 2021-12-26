@@ -121,6 +121,7 @@ func main() {
 				c.JSON(200, gin.H{
 					"message": "HelloWorld",
 					"Online":  bot.Instance.Online.Load(),
+					"data":    constvar.APPDesc(),
 				})
 			},
 		)

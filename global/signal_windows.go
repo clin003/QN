@@ -15,7 +15,8 @@ import (
 	"time"
 
 	"github.com/Microsoft/go-winio"
-	log "github.com/sirupsen/logrus"
+	// log "github.com/sirupsen/logrus"
+	"gitee.com/lyhuilin/log"
 )
 
 var validTasks = map[string]func(){
@@ -29,7 +30,7 @@ func SetupMainSignalHandler() <-chan struct{} {
 		pipeName := fmt.Sprintf(`\\.\pipe\QN-%d`, os.Getpid())
 		pipe, err := winio.ListenPipe(pipeName, &winio.PipeConfig{})
 		if err != nil {
-			log.Errorf("创建 named pipe 失败. 将无法使用 dumpstack 功能: %v", err)
+			log.Errorf(err, "创建 named pipe 失败. 将无法使用 dumpstack 功能")
 		} else {
 			maxTaskLen := 0
 			for t := range validTasks {
@@ -44,7 +45,7 @@ func SetupMainSignalHandler() <-chan struct{} {
 						if errors.Is(err, net.ErrClosed) || strings.Contains(err.Error(), "closed") {
 							return
 						}
-						log.Errorf("accept named pipe 失败: %v", err)
+						log.Errorf(err, "accept named pipe 失败: %v")
 						continue
 					}
 					go func() {
@@ -53,7 +54,7 @@ func SetupMainSignalHandler() <-chan struct{} {
 						buf := make([]byte, maxTaskLen)
 						n, err := c.Read(buf)
 						if err != nil {
-							log.Errorf("读取 named pipe 失败: %v", err)
+							log.Errorf(err, "读取 named pipe 失败: %v")
 							return
 						}
 						cmd := string(buf[:n])

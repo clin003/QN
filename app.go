@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"time"
 
 	"github.com/spf13/viper"
 
@@ -29,31 +30,31 @@ var (
 )
 
 func main() {
-	// http://www.network-science.de/ascii/
-	// https://www.jianshu.com/p/fca56d635091
-	fmt.Printf(`
-                                            
-     QQQQQQQQQ      NNNNNNNN        NNNNNNNN
-   QQ:::::::::QQ    N:::::::N       N::::::N
- QQ:::::::::::::QQ  N::::::::N      N::::::N
-Q:::::::QQQ:::::::Q N:::::::::N     N::::::N
-Q::::::O   Q::::::Q N::::::::::N    N::::::N
-Q:::::O     Q:::::Q N:::::::::::N   N::::::N
-Q:::::O     Q:::::Q N:::::::N::::N  N::::::N
-Q:::::O     Q:::::Q N::::::N N::::N N::::::N
-Q:::::O     Q:::::Q N::::::N  N::::N:::::::N
-Q:::::O     Q:::::Q N::::::N   N:::::::::::N
-Q:::::O  QQQQ:::::Q N::::::N    N::::::::::N
-Q::::::O Q::::::::Q N::::::N     N:::::::::N
-Q:::::::QQ::::::::Q N::::::N      N::::::::N
- QQ::::::::::::::Q  N::::::N       N:::::::N
-   QQ:::::::::::Q   N::::::N        N::::::N
-     QQQQQQQQ::::QQ NNNNNNNN         NNNNNNN
-             Q:::::Q                        
-              QQQQQQ                        v%s
-                                                                                                               
-`, constvar.APP_VERSION)
-	// return
+	// // http://www.network-science.de/ascii/
+	// // https://www.jianshu.com/p/fca56d635091
+	// fmt.Printf(`
+
+	//     QQQQQQQQQ      NNNNNNNN        NNNNNNNN
+	//   QQ:::::::::QQ    N:::::::N       N::::::N
+	// QQ:::::::::::::QQ  N::::::::N      N::::::N
+	// Q:::::::QQQ:::::::Q N:::::::::N     N::::::N
+	// Q::::::O   Q::::::Q N::::::::::N    N::::::N
+	// Q:::::O     Q:::::Q N:::::::::::N   N::::::N
+	// Q:::::O     Q:::::Q N:::::::N::::N  N::::::N
+	// Q:::::O     Q:::::Q N::::::N N::::N N::::::N
+	// Q:::::O     Q:::::Q N::::::N  N::::N:::::::N
+	// Q:::::O     Q:::::Q N::::::N   N:::::::::::N
+	// Q:::::O  QQQQ:::::Q N::::::N    N::::::::::N
+	// Q::::::O Q::::::::Q N::::::N     N:::::::::N
+	// Q:::::::QQ::::::::Q N::::::N      N::::::::N
+	// QQ::::::::::::::Q  N::::::N       N:::::::N
+	//   QQ:::::::::::Q   N::::::N        N::::::N
+	//     QQQQQQQQ::::QQ NNNNNNNN         NNNNNNN
+	//             Q:::::Q
+	//              QQQQQQ                        v%s
+
+	// `, constvar.APP_VERSION)
+
 	defer func() {
 		fmt.Scanln()
 	}()
@@ -68,7 +69,10 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 		fmt.Println(constvar.APP_VERSION)
 		return
 	}
+
 	fmt.Printf("%s (%v) \n%s\n", constvar.APP_NAME, constvar.APP_VERSION, constvar.APPDesc())
+	time.Sleep(time.Second)
+
 	if len(*workdir) > 0 {
 		env.SetWorkdir(*workdir)
 	}
@@ -89,7 +93,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 	// 不同协议可能会有部分功能无法使用
 	// 在登陆前切换协议
 	botProtocol := bot.GetProtocol()
-	fmt.Printf("使用协议: %v", botProtocol)
+	fmt.Println("使用协议: %s(%v)", viper.GetString("bot.use_protocol"), botProtocol)
 	bot.UseProtocol(botProtocol)
 
 	// 登录
@@ -108,6 +112,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 				c.JSON(200, gin.H{
 					"message": "pong",
 					"Online":  bot.Instance.Online.Load(),
+					"data":    constvar.APP_VERSION,
 				})
 			},
 		)

@@ -18,6 +18,7 @@ require (
 )
 
 require (
+	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/RomiChan/protobuf v0.0.0-20211204042931-ff4f35848737 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect

@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	API_VERSION = "0.3.1"
+	// API_VERSION = "0.3.2"
 	// http://www.network-science.de/ascii/
 	// http://patorjk.com/software/taag
 	// https://www.jianshu.com/p/fca56d635091
@@ -35,7 +35,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 `
 
 	APP_NAME    = "QN"
-	APP_VERSION = "0.3.1"
+	APP_VERSION = "0.3.2"
 )
 
 func APPDesc() string {

@@ -111,12 +111,16 @@ func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) 
 	return nil, err
 }
 func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
-
+	log.Infof("收到广播消息，开始处理(%s)\n", richMsg.ToString())
 	if !robot.Online.Load() {
-		log.Debugf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
+		log.Warnf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
 	}
 	isConverMsg := false
+	// 处理(格式化)待发布消息
 	for _, v := range hgbConf.GroupList {
+		if !v.IsFeed {
+			continue
+		}
 		groupCode := v.Id
 		msg, err := richMsgToSendingMessage(groupCode, richMsg)
 		if err != nil {
@@ -125,11 +129,11 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 		} else {
 			isConverMsg = true
 		}
-
+		// 广播消息
 		if isConverMsg {
 			for _, vv := range hgbConf.GroupList {
 				if !vv.IsFeed {
-					fmt.Println("群 %d 广播模式 未开启,忽略", vv.Id)
+					fmt.Printf("群 %d 广播模式 未开启,忽略\n", vv.Id)
 					continue
 				}
 				// log.Infof("群 %d 广播模式 已启用,准备发送(%s)", vv.Id, richMsg.MsgID)
@@ -139,7 +143,6 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 			}
 			break
 		}
-
 	}
 
 }

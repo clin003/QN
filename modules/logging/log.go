@@ -4,9 +4,10 @@ import (
 	"sync"
 
 	"gitee.com/lyhuilin/QN/bot"
-	// "gitee.com/lyhuilin/QN/utils"
+
 	"gitee.com/lyhuilin/log"
 	"gitee.com/lyhuilin/log/lager"
+
 	"github.com/Mrs4s/MiraiGo/client"
 	"github.com/Mrs4s/MiraiGo/message"
 )
@@ -74,12 +75,20 @@ func logGroupMessage(msg *message.GroupMessage) {
 	// 	WithField("GroupCode", msg.GroupCode).
 	// 	WithField("SenderID", msg.Sender.Uin).
 	// 	Info(msg.ToString())
-	log.Info(msg.ToString(), lager.Data{
+	// log.Info(msg.ToString(), lager.Data{
+	// 	"from":       "GroupMessage",
+	// 	"MessageID":  msg.Id,
+	// 	"MessageIID": msg.InternalId,
+	// 	"GroupCode":  msg.GroupCode,
+	// 	"SenderID":   msg.Sender.Uin,
+	// })
+	log.Info("群消息", lager.Data{
 		"from":       "GroupMessage",
 		"MessageID":  msg.Id,
 		"MessageIID": msg.InternalId,
 		"GroupCode":  msg.GroupCode,
 		"SenderID":   msg.Sender.Uin,
+		"msg":        msg.ToString(),
 	})
 }
 
@@ -91,12 +100,20 @@ func logPrivateMessage(msg *message.PrivateMessage) {
 	// 	WithField("SenderID", msg.Sender.Uin).
 	// 	WithField("Target", msg.Target).
 	// 	Info(msg.ToString())
-	log.Info(msg.ToString(), lager.Data{
+	// log.Info(msg.ToString(), lager.Data{
+	// 	"from":       "PrivateMessage",
+	// 	"MessageID":  msg.Id,
+	// 	"MessageIID": msg.InternalId,
+	// 	"SenderID":   msg.Sender.Uin,
+	// 	"Target":     msg.Target,
+	// })
+	log.Info("私聊消息", lager.Data{
 		"from":       "PrivateMessage",
 		"MessageID":  msg.Id,
 		"MessageIID": msg.InternalId,
 		"SenderID":   msg.Sender.Uin,
 		"Target":     msg.Target,
+		"msg":        msg.ToString(),
 	})
 }
 
@@ -106,7 +123,12 @@ func logFriendMessageRecallEvent(event *client.FriendMessageRecalledEvent) {
 	// 	WithField("MessageID", event.MessageId).
 	// 	WithField("SenderID", event.FriendUin).
 	// 	Info("friend message recall")
-	log.Info("friend message recall", lager.Data{
+	// log.Info("friend message recall", lager.Data{
+	// 	"from":      "FriendsMessageRecall",
+	// 	"MessageID": event.MessageId,
+	// 	"SenderID":  event.FriendUin,
+	// })
+	log.Info("好友消息回音", lager.Data{
 		"from":      "FriendsMessageRecall",
 		"MessageID": event.MessageId,
 		"SenderID":  event.FriendUin,
@@ -121,7 +143,14 @@ func logGroupMessageRecallEvent(event *client.GroupMessageRecalledEvent) {
 	// 	WithField("SenderID", event.AuthorUin).
 	// 	WithField("OperatorID", event.OperatorUin).
 	// 	Info("group message recall")
-	log.Info("group message recall", lager.Data{
+	// log.Info("group message recall", lager.Data{
+	// 	"from":       "GroupMessageRecall",
+	// 	"MessageID":  event.MessageId,
+	// 	"GroupCode":  event.GroupCode,
+	// 	"SenderID":   event.AuthorUin,
+	// 	"OperatorID": event.OperatorUin,
+	// })
+	log.Info("群消息回音", lager.Data{
 		"from":       "GroupMessageRecall",
 		"MessageID":  event.MessageId,
 		"GroupCode":  event.GroupCode,
@@ -138,7 +167,14 @@ func logGroupMuteEvent(event *client.GroupMuteEvent) {
 	// 	WithField("TargetID", event.TargetUin).
 	// 	WithField("MuteTime", event.Time).
 	// 	Info("group mute")
-	log.Info("group mute", lager.Data{
+	// log.Info("group mute", lager.Data{
+	// 	"from":       "GroupMute",
+	// 	"GroupCode":  event.GroupCode,
+	// 	"OperatorID": event.OperatorUin,
+	// 	"TargetID":   event.TargetUin,
+	// 	"MuteTime":   event.Time,
+	// })
+	log.Info("群事件", lager.Data{
 		"from":       "GroupMute",
 		"GroupCode":  event.GroupCode,
 		"OperatorID": event.OperatorUin,
@@ -152,7 +188,11 @@ func logDisconnect(event *client.ClientDisconnectedEvent) {
 	// 	WithField("from", "Disconnected").
 	// 	WithField("reason", event.Message).
 	// 	Warn("bot disconnected")
-	log.Warn("bot disconnected", lager.Data{
+	// log.Warn("bot disconnected", lager.Data{
+	// 	"from":   "Disconnected",
+	// 	"reason": event.Message,
+	// })
+	log.Warn("断开连接", lager.Data{
 		"from":   "Disconnected",
 		"reason": event.Message,
 	})

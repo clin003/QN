@@ -74,7 +74,7 @@ func wsClientStartService() {
 				return
 			}
 			go sendMsg(msg)
-			fmt.Printf("recv(%s):%v\n", msg.Msgtype, msg.Text.Content)
+			// fmt.Printf("recv(%s):%v\n", msg.Msgtype, msg.Text.Content)
 			// log.Infof("recv(%s):%v\n", msg.Msgtype, msg.Text.Content)
 		}
 	}()

@@ -133,7 +133,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 				}
 				// log.Infof("群 %d 广播模式 已启用,准备发送(%s)", vv.Id, richMsg.MsgID)
 				sendResult := robot.SendGroupMessage(vv.Id, msg)
-				log.Infof("群(%d) 广播模式 已启用,发送消息 %v", vv.Id, *sendResult)
+				log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) %s", vv.Id, sendResult.Id, sendResult.InternalId, sendResult.ToString())
 				time.Sleep(hgbConf.SenderSleep)
 			}
 			break

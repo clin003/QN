@@ -6,19 +6,16 @@ import (
 	"os/signal"
 	"time"
 
-	"gitee.com/lyhuilin/QN/utils"
-
+	"gitee.com/lyhuilin/log"
+	"gitee.com/lyhuilin/pkg/config"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
 	"gitee.com/lyhuilin/QN/bot"
 	"gitee.com/lyhuilin/QN/constvar"
 	"gitee.com/lyhuilin/QN/env"
 	"gitee.com/lyhuilin/QN/global"
-	"gitee.com/lyhuilin/log"
-	"gitee.com/lyhuilin/pkg/config"
-
-	// "github.com/gin-gonic/gin"
-	"github.com/spf13/pflag"
+	"gitee.com/lyhuilin/QN/utils"
 
 	_ "gitee.com/lyhuilin/QN/modules/autoreply"
 	_ "gitee.com/lyhuilin/QN/modules/huiguangbo"
@@ -32,31 +29,6 @@ var (
 )
 
 func main() {
-	// // http://www.network-science.de/ascii/
-	// // https://www.jianshu.com/p/fca56d635091
-	// fmt.Printf(`
-
-	//     QQQQQQQQQ      NNNNNNNN        NNNNNNNN
-	//   QQ:::::::::QQ    N:::::::N       N::::::N
-	// QQ:::::::::::::QQ  N::::::::N      N::::::N
-	// Q:::::::QQQ:::::::Q N:::::::::N     N::::::N
-	// Q::::::O   Q::::::Q N::::::::::N    N::::::N
-	// Q:::::O     Q:::::Q N:::::::::::N   N::::::N
-	// Q:::::O     Q:::::Q N:::::::N::::N  N::::::N
-	// Q:::::O     Q:::::Q N::::::N N::::N N::::::N
-	// Q:::::O     Q:::::Q N::::::N  N::::N:::::::N
-	// Q:::::O     Q:::::Q N::::::N   N:::::::::::N
-	// Q:::::O  QQQQ:::::Q N::::::N    N::::::::::N
-	// Q::::::O Q::::::::Q N::::::N     N:::::::::N
-	// Q:::::::QQ::::::::Q N::::::N      N::::::::N
-	// QQ::::::::::::::Q  N::::::N       N:::::::N
-	//   QQ:::::::::::Q   N::::::N        N::::::N
-	//     QQQQQQQQ::::QQ NNNNNNNN         NNNNNNN
-	//             Q:::::Q
-	//              QQQQQQ                        v%s
-
-	// `, constvar.APP_VERSION)
-
 	defer func() {
 		fmt.Scanln()
 	}()
@@ -117,29 +89,6 @@ func main() {
 			time.Sleep(10 * time.Minute)
 		}
 	}()
-
-	// go func() {
-	// 	r := gin.Default()
-	// 	r.GET("/ping",
-	// 		func(c *gin.Context) {
-	// 			c.JSON(200, gin.H{
-	// 				"message": "pong",
-	// 				"Online":  bot.Instance.Online.Load(),
-	// 				"data":    constvar.APP_VERSION,
-	// 			})
-	// 		},
-	// 	)
-	// 	r.GET("/",
-	// 		func(c *gin.Context) {
-	// 			c.JSON(200, gin.H{
-	// 				"message": "HelloWorld",
-	// 				"Online":  bot.Instance.Online.Load(),
-	// 				"data":    constvar.APPDesc(),
-	// 			})
-	// 		},
-	// 	)
-	// 	r.Run(viper.GetString("addr")) // 监听并在 0.0.0.0:8080 上启动服务
-	// }()
 
 	<-global.SetupMainSignalHandler()
 

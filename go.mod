@@ -9,7 +9,7 @@ require (
 	gitee.com/lyhuilin/pkg v0.0.0-20211130013449-31ad67666d59
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Baozisoftware/qrcode-terminal-go v0.0.0-20170407111555-c0650d8dff0f
-	github.com/Mrs4s/MiraiGo v0.0.0-20211221051559-21f8feb419c9
+	github.com/Mrs4s/MiraiGo v0.0.0-20211224091842-a3b4e1b99492
 	github.com/gorilla/websocket v1.4.2
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.10.1
@@ -22,7 +22,7 @@ require (
 	cloud.google.com/go/storage v1.18.2 // indirect
 	gitee.com/lyhuilin/my_admin v0.0.0-20211224132058-18ff565f2662 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
-	github.com/RomiChan/protobuf v0.0.0-20211204042931-ff4f35848737 // indirect
+	github.com/RomiChan/protobuf v0.0.0-20211223055824-048df49a8956 // indirect
 	github.com/census-instrumentation/opencensus-proto v0.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cncf/udpa/go v0.0.0-20210930031921-04548b0d99d4 // indirect

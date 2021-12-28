@@ -13,7 +13,9 @@ import (
 	"gitee.com/lyhuilin/log"
 	"gitee.com/lyhuilin/util"
 
-	"gitee.com/lyhuilin/open_api/model/feedmsg"
+	// "gitee.com/lyhuilin/open_api/model/feedmsg"
+	"gitee.com/lyhuilin/model/feedmsg"
+
 	"github.com/Mrs4s/MiraiGo/message"
 	"gopkg.in/yaml.v2"
 )
@@ -158,7 +160,6 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 		}
 
 		// 广播消息
-		// log.Infof("群 %d 广播模式 已启用,准备发送(%s)", vv.Id, richMsg.MsgID)
 		sendResult := robot.SendGroupMessage(v.Id, msg)
 		log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) %s", v.Id, sendResult.Id, sendResult.InternalId, sendResult.ToString())
 		time.Sleep(hgbConf.SenderSleep)
@@ -173,7 +174,6 @@ func InitHGBConf() {
 		time.Sleep(10 * time.Second)
 	}
 	log.Infof("开始 加载慧广播配置信息")
-	// hgbConf
 	for _, v := range robot.GroupList {
 		groupName := v.Name
 		groupCode := v.Code
@@ -197,11 +197,9 @@ func InitHGBConf() {
 		hgbConf.SenderSleep = 8 * time.Second
 	}
 	if len(hgbConf.GroupList) > 0 {
-		// err = yaml.Unmarshal(bytes, &hgbConf)
 		outBody, err := yaml.Marshal(hgbConf)
 		if err != nil {
 			log.Errorf(err, "生成配置信息编码出错(yaml.Marshal):%v", hgbConf)
-			// return
 		} else {
 			path := getPathConf()
 			err := util.WriteFile(path, outBody)

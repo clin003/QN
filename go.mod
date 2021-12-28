@@ -20,6 +20,7 @@ require (
 require (
 	cloud.google.com/go v0.99.0 // indirect
 	cloud.google.com/go/storage v1.18.2 // indirect
+	gitee.com/lyhuilin/model v0.0.0-20211228113258-aed3c12b2d86 // indirect
 	gitee.com/lyhuilin/my_admin v0.0.0-20211224132058-18ff565f2662 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/RomiChan/protobuf v0.0.0-20211223055824-048df49a8956 // indirect

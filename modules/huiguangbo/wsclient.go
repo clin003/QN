@@ -13,7 +13,8 @@ import (
 	"time"
 
 	"gitee.com/lyhuilin/log"
-	"gitee.com/lyhuilin/open_api/model/feedmsg"
+	// "gitee.com/lyhuilin/open_api/model/feedmsg"
+	"gitee.com/lyhuilin/model/feedmsg"
 	"github.com/gorilla/websocket"
 )
 

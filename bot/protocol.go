@@ -4,7 +4,14 @@ import "github.com/Mrs4s/MiraiGo/client"
 
 type protocol int
 
+// Unset        = auth.Unset
+// AndroidPhone = auth.AndroidPhone
+// AndroidWatch = auth.AndroidWatch
+// MacOS        = auth.MacOS
+// QiDian       = auth.QiDian
+// IPad         = auth.IPad
 const (
+	Unset        = protocol(client.Unset)
 	AndroidPhone = protocol(client.AndroidPhone)
 	AndroidWatch = protocol(client.AndroidWatch)
 	MacOS        = protocol(client.MacOS)

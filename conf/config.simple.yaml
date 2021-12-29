@@ -24,11 +24,11 @@ log:
   log_rotate_date: 1
   log_rotate_size: 1
   log_backup_count: 7
-#
-# myAdmin Api Server 地址
-myadmin_api_server_url: http://127.0.0.1:8090
-# myAdmin Api Server Token
-myadmin_api_server_token: xxx
+# #
+# # myAdmin Api Server 地址
+# myadmin_api_server_url: 
+# # myAdmin Api Server Token
+# myadmin_api_server_token: 
 #
 # 机器人相关配置
 bot:

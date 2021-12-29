@@ -82,7 +82,7 @@ func GetProtocol() protocol {
 	case "QiDian":
 		return QiDian
 	}
-	return IPad
+	return Unset
 }
 
 // InitBot 使用 account password 进行初始化账号

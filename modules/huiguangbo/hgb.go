@@ -124,22 +124,45 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 			// fmt.Printf("群 %d 广播模式 未开启,忽略\n", v.Id)
 			continue
 		}
-		groupCode := v.Id
-		msg, err := richMsgToSendingMessage(groupCode, richMsg)
-		if err != nil {
-			log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
-			continue
-		}
+		sendFun := func() {
+			groupCode := v.Id
+			msg, err := richMsgToSendingMessage(groupCode, richMsg)
+			if err != nil {
+				log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
+				return
+			}
 
-		// 广播消息
-		sendResult := robot.SendGroupMessage(v.Id, msg)
-		if sendResult != nil {
-			log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+			// 广播消息
+			sendResult := robot.SendGroupMessage(v.Id, msg)
+			if sendResult != nil {
+				log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+			} else {
+				log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+			}
+		}
+		if hgbConf.SenderSleep <= 100*time.Microsecond {
+			go sendFun()
 		} else {
-			log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+			sendFun()
+			time.Sleep(hgbConf.SenderSleep)
 		}
 
-		time.Sleep(hgbConf.SenderSleep)
+		// groupCode := v.Id
+		// msg, err := richMsgToSendingMessage(groupCode, richMsg)
+		// if err != nil {
+		// 	log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
+		// 	continue
+		// }
+
+		// // 广播消息
+		// sendResult := robot.SendGroupMessage(v.Id, msg)
+		// if sendResult != nil {
+		// 	log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+		// } else {
+		// 	log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+		// }
+
+		// time.Sleep(hgbConf.SenderSleep)
 	}
 }
 
@@ -148,7 +171,7 @@ func InitHGBConf() {
 		if robot.Online.Load() {
 			break
 		}
-		time.Sleep(10 * time.Second)
+		time.Sleep(20 * time.Second)
 	}
 	log.Infof("开始 加载慧广播配置信息")
 	for _, v := range robot.GroupList {
@@ -171,7 +194,7 @@ func InitHGBConf() {
 		}
 	}
 	if hgbConf.SenderSleep <= 0 {
-		hgbConf.SenderSleep = 8 * time.Second
+		hgbConf.SenderSleep = 100 * time.Microsecond
 	}
 	if len(hgbConf.GroupList) > 0 {
 		outBody, err := yaml.Marshal(hgbConf)

@@ -24,6 +24,9 @@ log:
   log_rotate_date: 1
   log_rotate_size: 1
   log_backup_count: 7
+#
+# true ，退出自动重启主程序  false 正常退出
+recover_restart_enable: false
 # #
 # # myAdmin Api Server 地址
 # myadmin_api_server_url: 
@@ -35,8 +38,8 @@ bot:
   # 账号
   account: 123456789
   # 密码
-  password: xxx
-  # 机器人使用协议：AndroidPhone IPad AndroidWatch MacOS QiDian
+  password: 
+  # 机器人使用协议： AndroidPhone IPad AndroidWatch MacOS QiDian
   use_protocol: IPad
 #
 # 插件配置文件路径地址

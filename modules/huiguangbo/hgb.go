@@ -119,37 +119,9 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 	}
 	// isConverMsg := false
 	// 处理(格式化)待发布消息
-	// for _, v := range hgbConf.GroupList {
-	// 	if !v.IsFeed {
-	// 		continue
-	// 	}
-	// 	groupCode := v.Id
-	// 	msg, err := richMsgToSendingMessage(groupCode, richMsg)
-	// 	if err != nil {
-	// 		log.Errorf(err, "消息处理失败(%d): %v", groupCode, richMsg.ToString())
-	// 		continue
-	// 	} else {
-	// 		isConverMsg = true
-	// 	}
-	// 	// 广播消息
-	// 	if isConverMsg {
-	// 		for _, vv := range hgbConf.GroupList {
-	// 			if !vv.IsFeed {
-	// 				fmt.Printf("群 %d 广播模式 未开启,忽略\n", vv.Id)
-	// 				continue
-	// 			}
-	// 			// log.Infof("群 %d 广播模式 已启用,准备发送(%s)", vv.Id, richMsg.MsgID)
-	// 			sendResult := robot.SendGroupMessage(vv.Id, msg)
-	// 			log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) %s", vv.Id, sendResult.Id, sendResult.InternalId, sendResult.ToString())
-	// 			time.Sleep(hgbConf.SenderSleep)
-	// 		}
-	// 		break
-	// 	}
-	// }
-
 	for _, v := range hgbConf.GroupList {
 		if !v.IsFeed {
-			fmt.Printf("群 %d 广播模式 未开启,忽略\n", v.Id)
+			// fmt.Printf("群 %d 广播模式 未开启,忽略\n", v.Id)
 			continue
 		}
 		groupCode := v.Id

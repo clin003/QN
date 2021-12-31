@@ -135,7 +135,7 @@ func Login() error {
 					log.Warnf("1. 使用会话缓存继续.")
 					log.Warnf("2. 删除会话缓存并退出程序.")
 					log.Warnf("请选择: (5秒后自动选1)")
-					text := readLineTimeout(time.Second*5, "1")
+					text := readLineTimeout(time.Second*30, "1")
 					if text == "2" {
 						_ = os.Remove(sessionFilePath)
 						log.Infof("会话缓存已删除.")

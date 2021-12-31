@@ -81,7 +81,7 @@ func main() {
 	// 不同协议可能会有部分功能无法使用
 	// 在登陆前切换协议
 	botProtocol := bot.GetProtocol()
-	log.Infof("使用协议: %s(%v)\n", viper.GetString("bot.use_protocol"), botProtocol)
+	log.Infof("使用协议: %s(%v)", viper.GetString("bot.use_protocol"), botProtocol)
 	bot.UseProtocol(botProtocol)
 
 	// 登录

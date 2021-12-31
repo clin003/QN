@@ -121,15 +121,32 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 	// 处理(格式化)待发布消息
 	for _, v := range hgbConf.GroupList {
 		if !v.IsFeed {
-			// fmt.Printf("群 %d 广播模式 未开启,忽略\n", v.Id)
 			continue
 		}
-		sendFun := func() {
+
+		if hgbConf.SenderSleep <= 100*time.Microsecond {
+			go func() {
+				groupCode := v.Id
+				msg, err := richMsgToSendingMessage(groupCode, richMsg)
+				if err != nil {
+					log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
+					return
+				}
+
+				// 广播消息
+				sendResult := robot.SendGroupMessage(v.Id, msg)
+				if sendResult != nil {
+					log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+				} else {
+					log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+				}
+			}()
+		} else {
 			groupCode := v.Id
 			msg, err := richMsgToSendingMessage(groupCode, richMsg)
 			if err != nil {
 				log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
-				return
+				continue
 			}
 
 			// 广播消息
@@ -139,11 +156,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 			} else {
 				log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
 			}
-		}
-		if hgbConf.SenderSleep <= 100*time.Microsecond {
-			go sendFun()
-		} else {
-			sendFun()
+
 			time.Sleep(hgbConf.SenderSleep)
 		}
 

@@ -125,8 +125,9 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 		}
 
 		if hgbConf.SenderSleep <= 100*time.Microsecond {
-			go func() {
-				groupCode := v.Id
+			vID := v.Id
+			go func(groupID int64) {
+				groupCode := groupID
 				msg, err := richMsgToSendingMessage(groupCode, richMsg)
 				if err != nil {
 					log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
@@ -140,7 +141,7 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 				} else {
 					log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", groupCode, richMsg.ToString())
 				}
-			}()
+			}(vID)
 		} else {
 			groupCode := v.Id
 			msg, err := richMsgToSendingMessage(groupCode, richMsg)

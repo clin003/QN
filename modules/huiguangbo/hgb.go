@@ -134,11 +134,11 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 				}
 
 				// 广播消息
-				sendResult := robot.SendGroupMessage(v.Id, msg)
+				sendResult := robot.SendGroupMessage(groupCode, msg)
 				if sendResult != nil {
-					log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+					log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", groupCode, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
 				} else {
-					log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+					log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", groupCode, richMsg.ToString())
 				}
 			}()
 		} else {
@@ -150,11 +150,11 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 			}
 
 			// 广播消息
-			sendResult := robot.SendGroupMessage(v.Id, msg)
+			sendResult := robot.SendGroupMessage(groupCode, msg)
 			if sendResult != nil {
-				log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+				log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", groupCode, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
 			} else {
-				log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+				log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", groupCode, richMsg.ToString())
 			}
 
 			time.Sleep(hgbConf.SenderSleep)

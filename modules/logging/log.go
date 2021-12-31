@@ -222,4 +222,5 @@ func registerLog(b *bot.Bot) {
 	b.OnDisconnected(func(qqClient *client.QQClient, event *client.ClientDisconnectedEvent) {
 		logDisconnect(event)
 	})
+
 }

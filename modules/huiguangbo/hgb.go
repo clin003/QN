@@ -127,13 +127,18 @@ func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
 		groupCode := v.Id
 		msg, err := richMsgToSendingMessage(groupCode, richMsg)
 		if err != nil {
-			log.Errorf(err, "消息处理失败(%d): %v", groupCode, richMsg.ToString())
+			log.Errorf(err, "消息处理失败(%d): %s", groupCode, richMsg.ToString())
 			continue
 		}
 
 		// 广播消息
 		sendResult := robot.SendGroupMessage(v.Id, msg)
-		log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) %s", v.Id, sendResult.Id, sendResult.InternalId, sendResult.ToString())
+		if sendResult != nil {
+			log.Infof("群(%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", v.Id, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+		} else {
+			log.Infof("群(%d) 广播模式 已启用,发送消息 失败 :%s", v.Id, richMsg.ToString())
+		}
+
 		time.Sleep(hgbConf.SenderSleep)
 	}
 }

@@ -352,6 +352,14 @@ func RefreshList() {
 		log.Errorf(err, "刷新群列表失败")
 	}
 	log.Infof("共加载 %d 个群", len(Instance.GroupList))
+
+	log.Infof("共加载 %d 个频道", len(Instance.GuildService.Guilds))
+	for _, v := range Instance.GuildService.Guilds {
+		log.Infof("%s(ID:%d Code:%d)", v.GuildName, v.GuildId, v.GuildCode)
+		for _, vv := range v.Channels {
+			log.Infof("%s(ID:%d  EventTime:%d)", vv.ChannelName, vv.ChannelId, vv.EventTime)
+		}
+	}
 	// for _, v := range Instance.GroupList {
 	// 	// fmt.Println(k, v.Code)
 	// 	fmt.Printf("Name(%s),Code(%d),Uin(%d)\n", v.Name, v.Code, v.Uin)

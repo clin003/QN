@@ -91,6 +91,14 @@ func (a *system) Serve(b *bot.Bot) {
 			c.SendPrivateMessage(msg.Sender.Uin, m)
 			return
 		}
+		// if msg.ToString() == "\\test" {
+		// 	m := message.NewSendingMessage().Append(message.NewText("系统状态: 正常\n机器人状态: 在线"))
+		// 	// c.SendPrivateMessage(msg.Sender.Uin, m)
+		// 	if res, err := b.GuildService.SendGuildChannelMessage(11435461641017642, 2348422, m); err != nil {
+		// 		log.Errorf(err, "res: %v", res)
+		// 	}
+		// 	return
+		// }
 
 	})
 }

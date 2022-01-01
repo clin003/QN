@@ -93,6 +93,7 @@ func main() {
 	}
 	// 刷新好友列表，群列表
 	bot.RefreshList()
+	
 
 	go func() {
 		for {

@@ -1,7 +1,3 @@
-/*
- * @Author: baicai_way
- * @Date: 2022-01-01
- */
 // Copyright 2015 The HLTYopenAPI(baicai) Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -14,19 +10,63 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"sync"
 	"time"
 
 	"gitee.com/lyhuilin/log"
-	// "gitee.com/lyhuilin/open_api/model/feedmsg"
 	"gitee.com/lyhuilin/model/feedmsg"
 	"github.com/gorilla/websocket"
+	// "github.com/spf13/viper"
 )
 
 var wsUrlStr string
 var serverUrl string
+var wsMap sync.Map
+
+// func InitWsServer() {
+// 	wsServerUrl := viper.GetString("server_url")
+// 	channel := viper.GetString("server_token")
+// 	if strings.Contains(channel, "|") {
+// 		cs := strings.Split(channel, "|")
+// 		for i, v := range cs {
+// 			v = strings.TrimSpace(v)
+// 			if len(v) > 0 {
+// 				log.Infof("激活监听:%d ->(%s) %s", i, wsServerUrl, v)
+// 				go wsClientStart(wsServerUrl, v)
+// 				time.Sleep(1 * time.Second)
+// 			}
+// 		}
+// 	} else {
+// 		go wsClientStart(wsServerUrl, channel)
+// 		log.Infof("激活监听:(%s) %s", wsServerUrl, channel)
+// 	}
+// }
+
+func initWsServer(wsServerUrl, channel string) {
+	// wsServerUrl := viper.GetString("server_url")
+	// channel := viper.GetString("server_token")
+	if strings.Contains(channel, "|") {
+		cs := strings.Split(channel, "|")
+		for i, v := range cs {
+			v = strings.TrimSpace(v)
+			if len(v) > 0 {
+				log.Infof("激活监听:%d ->(%s) %s", i, wsServerUrl, v)
+				go wsClientStart(wsServerUrl, v)
+				time.Sleep(1 * time.Second)
+			}
+		}
+	} else {
+		go wsClientStart(wsServerUrl, channel)
+		log.Infof("激活监听:(%s) %s", wsServerUrl, channel)
+	}
+}
 
 // 解析服务器地址为ws地址格式
 func parseWsServerUrl(wsServerUrl, channel string) (retText string) {
+	// if isRefresh {
+	// 	wsServerUrl = viper.GetString("server_url")
+	// 	channel = viper.GetString("server_token")
+	// }
 	// ws服务器地址
 	// wsServerUrl := "https://api.lyhuilin.com"
 	// ws传输数据channel token
@@ -50,23 +90,29 @@ func parseWsServerUrl(wsServerUrl, channel string) (retText string) {
 }
 
 // 启动wsClient
-// go wsClientStart(wsServerUrl, channel)
 func wsClientStart(wsServerUrl, channel string) {
 	serverUrl = wsServerUrl
 	wsUrlStr = parseWsServerUrl(wsServerUrl, channel)
-	go wsClientStartService()
+	go wsClientStartService(wsUrlStr)
 }
 
 // 启动wsClient服务并保持
-func wsClientStartService() {
+func wsClientStartService(wsUrlStr string) {
+	if _, ok := wsMap.Load(wsUrlStr); ok {
+		return
+	}
+
 	wsClientConn, _, err := websocket.DefaultDialer.Dial(wsUrlStr, nil)
 	if err != nil {
 		log.Errorf(err, "dial:%s", serverUrl)
 		time.Sleep(30 * time.Second)
-		go wsClientStartService()
+		go wsClientStartService(wsUrlStr)
 		return
 	}
 	defer wsClientConn.Close()
+	wsMap.Store(wsUrlStr, 1)
+	defer wsMap.Delete(wsUrlStr)
+
 	done := make(chan struct{})
 	go func() {
 		defer close(done)
@@ -79,8 +125,9 @@ func wsClientStartService() {
 				return
 			}
 			go sendMsg(msg)
-			// fmt.Printf("recv(%s):%v\n", msg.Msgtype, msg.Text.Content)
+			// fmt.Printf("recv(%s):\n%v\n%s\n%v\n", msg.Msgtype, msg.Text.Content, msg.Link, msg.Image)
 			// log.Infof("recv(%s):%v\n", msg.Msgtype, msg.Text.Content)
+			// log.Debugf("recv:%v", msg)
 		}
 	}()
 
@@ -93,7 +140,7 @@ func wsClientStartService() {
 		select {
 		case <-done:
 			time.Sleep(30 * time.Second)
-			go wsClientStartService()
+			go wsClientStartService(wsUrlStr)
 			return
 
 		case <-interrupt:

@@ -224,28 +224,31 @@ func richMsgToGuildSendingMessage(guildID, channelId uint64, richMsg feedmsg.Fee
 	return nil, err
 }
 func sendMsgGuild(richMsg feedmsg.FeedRichMsgModel) {
+	if !hgbConf.GuildSenderEnable {
+		return
+	}
 	log.Infof("收到广播消息，开始处理(频道)(%s)", richMsg.ToString())
 	if !robot.Online.Load() {
 		log.Warnf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
 	}
 	_guildIDChannelID := guildIDChannelID
-	// guildID_channelID := fmt.Sprintf("%d_%d", c.Id, cc.Id)
-	sendGuildFun := func(guildId, channelId uint64) {
-		msg, err := richMsgToGuildSendingMessage(guildId, channelId, richMsg)
-		if err != nil {
-			log.Errorf(err, "消息处理失败(%d:%d): %s", guildId, channelId, richMsg.ToString())
-			return
-		}
+	// // guildID_channelID := fmt.Sprintf("%d_%d", c.Id, cc.Id)
+	// sendGuildFun := func(guildId, channelId uint64) {
+	// 	msg, err := richMsgToGuildSendingMessage(guildId, channelId, richMsg)
+	// 	if err != nil {
+	// 		log.Errorf(err, "消息处理失败(%d:%d): %s", guildId, channelId, richMsg.ToString())
+	// 		return
+	// 	}
 
-		// 广播消息
-		if sendResult, err := robot.GuildService.SendGuildChannelMessage(guildId, channelId, msg); err != nil {
-			log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
-		} else if sendResult != nil {
-			log.Infof("频道(%d:%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", guildId, channelId, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
-		} else {
-			log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
-		}
-	}
+	// 	// 广播消息
+	// 	if sendResult, err := robot.GuildService.SendGuildChannelMessage(guildId, channelId, msg); err != nil {
+	// 		log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+	// 	} else if sendResult != nil {
+	// 		log.Infof("频道(%d:%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", guildId, channelId, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+	// 	} else {
+	// 		log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+	// 	}
+	// }
 
 	for _, c := range robot.GuildService.Guilds {
 		for _, cc := range c.Channels {
@@ -255,9 +258,40 @@ func sendMsgGuild(richMsg feedmsg.FeedRichMsgModel) {
 			if strings.Contains(_guildIDChannelID, guildID_channelID) {
 
 				if hgbConf.SenderSleep <= 100*time.Microsecond {
-					go sendGuildFun(guildId, channelId)
+					go func(guildId, channelId uint64) {
+						msg, err := richMsgToGuildSendingMessage(guildId, channelId, richMsg)
+						if err != nil {
+							log.Errorf(err, "消息处理失败(%d:%d): %s", guildId, channelId, richMsg.ToString())
+							return
+						}
+
+						// 广播消息
+						if sendResult, err := robot.GuildService.SendGuildChannelMessage(guildId, channelId, msg); err != nil {
+							log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+						} else if sendResult != nil {
+							log.Infof("频道(%d:%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", guildId, channelId, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+						} else {
+							log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+						}
+					}(guildId, channelId)
 				} else {
-					sendGuildFun(guildId, channelId)
+					// sendGuildFun(guildId, channelId)
+
+					msg, err := richMsgToGuildSendingMessage(guildId, channelId, richMsg)
+					if err != nil {
+						log.Errorf(err, "消息处理失败(%d:%d): %s", guildId, channelId, richMsg.ToString())
+						return
+					}
+
+					// 广播消息
+					if sendResult, err := robot.GuildService.SendGuildChannelMessage(guildId, channelId, msg); err != nil {
+						log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+					} else if sendResult != nil {
+						log.Infof("频道(%d:%d) 广播模式 已启用,发送消息 (ID: %d InternalId: %d ) ", guildId, channelId, sendResult.Id, sendResult.InternalId) //, sendResult.ToString()
+					} else {
+						log.Errorf(err, "频道(%d:%d) 广播模式 已启用,发送消息 失败 :%s", guildId, channelId, richMsg.ToString())
+					}
+
 					time.Sleep(hgbConf.SenderSleep)
 				}
 

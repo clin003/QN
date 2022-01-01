@@ -5,10 +5,11 @@ import (
 )
 
 type HGBConf struct {
-	GroupList     []GroupInfo   `yaml: "group_list"`
-	SenderSleep   time.Duration `yaml: "sender_sleep"`
-	GuildList     []GuildInfo   `yaml: "guild_list"`
-	FeedGuildList []string      `yaml: "feed_guild_list"` //GuildID_ChannelID
+	GroupList         []GroupInfo   `yaml: "group_list"`
+	SenderSleep       time.Duration `yaml: "sender_sleep"`
+	GuildList         []GuildInfo   `yaml: "guild_list"`
+	FeedGuildList     []string      `yaml: "feed_guild_list"` //GuildID_ChannelID
+	GuildSenderEnable bool          `yaml: "guild_sender_enable"`
 }
 
 type GroupInfo struct {

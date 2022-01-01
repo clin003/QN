@@ -35,6 +35,7 @@ func (a *ar) MiraiGoModule() bot.ModuleInfo {
 }
 
 func (a *ar) Init() {
+	log.Infof("【QN】模块初始化=%+v", a.MiraiGoModule().ID)
 	path := viper.GetString("module.autoreply.path")
 
 	if path == "" {

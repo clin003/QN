@@ -51,6 +51,8 @@ gitee.com/lyhuilin/log v0.0.0-20210402052422-bfc045fae7b8 h1:YAbYQKiHhHinG9SC7FT
 gitee.com/lyhuilin/log v0.0.0-20210402052422-bfc045fae7b8/go.mod h1:BLOHY+LApC3W6x8vwN++CRYAZdMYMJ4Veev4Xvzpkxk=
 gitee.com/lyhuilin/model v0.0.0-20211228113258-aed3c12b2d86 h1:OyOQK8SiGadLNQ5VGkwfeLf2LsrUgzXqZl78gk3YS8w=
 gitee.com/lyhuilin/model v0.0.0-20211228113258-aed3c12b2d86/go.mod h1:6plzcBzKu4yFx9VkRseAZL/K/DBP5vyuOEv7qkB7Z+c=
+gitee.com/lyhuilin/model v0.0.0-20220101093636-ad26cfdd4b7e h1:DbRK6j9QcZ5flte5LPQV7Epp/pe3bypjw2MOhggQSCI=
+gitee.com/lyhuilin/model v0.0.0-20220101093636-ad26cfdd4b7e/go.mod h1:6plzcBzKu4yFx9VkRseAZL/K/DBP5vyuOEv7qkB7Z+c=
 gitee.com/lyhuilin/my_admin v0.0.0-20211228042127-96df1b2c0b4f h1:+lyFY7JXjzkyxIBSLpVdaJxwlTszePbnzwkNeP1vFfg=
 gitee.com/lyhuilin/my_admin v0.0.0-20211228042127-96df1b2c0b4f/go.mod h1:3EnUL6CZUXsHO5lkdLflgGP/MsBJMYI1Zl8+07nW77Q=
 gitee.com/lyhuilin/open_api v0.0.0-20211130101245-320f2d871335/go.mod h1:2XBVX5F+eKf7/ehHQv5lYbKvCuHXrb3m4ab4HyGwpFY=

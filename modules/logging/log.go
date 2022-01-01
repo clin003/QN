@@ -1,3 +1,7 @@
+/*
+ * @Author: baicai_way
+ * @Date: 2022-01-01
+ */
 package logging
 
 import (
@@ -27,10 +31,11 @@ func (m *logging) MiraiGoModule() bot.ModuleInfo {
 	}
 }
 
-func (m *logging) Init() {
+func (a *logging) Init() {
 	// 初始化过程
 	// 在此处可以进行 Module 的初始化配置
 	// 如配置读取
+	log.Infof("【QN】模块初始化=%+v", a.MiraiGoModule().ID)
 }
 
 func (m *logging) PostInit() {

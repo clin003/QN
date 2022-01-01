@@ -1,3 +1,7 @@
+/*
+ * @Author: baicai_way
+ * @Date: 2022-01-01
+ */
 package huiguangbo
 
 import (
@@ -48,6 +52,7 @@ func getPathConf() (retText string) {
 	return path
 }
 func (a *hgb) Init() {
+	log.Infof("【QN】模块初始化=%+v", a.MiraiGoModule().ID)
 	path := getPathConf()
 
 	bytes, err := util.ReadFile(path)
@@ -113,7 +118,7 @@ func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) 
 	return nil, err
 }
 func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
-	log.Infof("收到广播消息，开始处理(%s)\n", richMsg.ToString())
+	log.Infof("收到广播消息，开始处理(%s)", richMsg.ToString())
 	if !robot.Online.Load() {
 		log.Warnf("机器人(%d:%s)离线，请重新登录(重新打开程序)", robot.Uin, robot.Nickname)
 	}

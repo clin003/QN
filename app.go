@@ -20,6 +20,7 @@ import (
 	_ "gitee.com/lyhuilin/QN/modules/autoreply"
 	_ "gitee.com/lyhuilin/QN/modules/huiguangbo"
 	_ "gitee.com/lyhuilin/QN/modules/logging"
+	_ "gitee.com/lyhuilin/QN/modules/system"
 )
 
 var (

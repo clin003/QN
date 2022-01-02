@@ -34,6 +34,8 @@ var hgbConf = HGBConf{}
 
 var robot *bot.Bot
 var guildIDChannelID string
+var isReady bool
+var once sync.Once
 
 type hgb struct {
 }
@@ -121,6 +123,9 @@ func richMsgToSendingMessage(groupCode int64, richMsg feedmsg.FeedRichMsgModel) 
 	return nil, err
 }
 func sendMsg(richMsg feedmsg.FeedRichMsgModel) {
+	if !isReady {
+		return
+	}
 	defer func() {
 		if err := recover(); err != nil {
 			log.Warnf("run time panic(sendMsg): %v", err)
@@ -379,4 +384,8 @@ func InitHGBConf() {
 		}
 	}
 	log.Infof("完成 加载慧广播配置信息")
+	once.Do(func() {
+		isReady = true
+	})
+
 }

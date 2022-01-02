@@ -206,7 +206,8 @@ func richMsgToGuildSendingMessage(guildID, channelId uint64, richMsg feedmsg.Fee
 	m := message.NewSendingMessage()
 	if richMsg.Msgtype == "rich" {
 		if len(richMsg.Text.Content) > 0 {
-			m.Append(message.NewText(richMsg.Text.Content))
+			richMsgText := fmt.Sprintf("%s ", richMsg.Text.Content)
+			m.Append(message.NewText(richMsgText))
 		}
 
 		if len(richMsg.Image.PicURL) > 0 && strings.HasPrefix(richMsg.Image.PicURL, "http") {

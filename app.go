@@ -31,16 +31,6 @@ var (
 
 func main() {
 	defer func() {
-		log.Infof("QN退出(Exit)")
-		fmt.Scanln()
-		if viper.GetBool("recover_restart_enable") {
-			log.Infof("Exit(restart)")
-			if err := restart(); err != nil {
-				log.Errorf(err, "Exit(restart)")
-			}
-		}
-	}()
-	defer func() {
 		if err := recover(); err != nil {
 			log.Warnf("run time panic: %v", err)
 			if viper.GetBool("recover_restart_enable") {
@@ -48,6 +38,16 @@ func main() {
 				if err := restart(); err != nil {
 					log.Errorf(err, "recover(restart)")
 				}
+			}
+		}
+	}()
+	defer func() {
+		log.Infof("QN退出(Exit)")
+		fmt.Scanln()
+		if viper.GetBool("recover_restart_enable") {
+			log.Infof("Exit(restart)")
+			if err := restart(); err != nil {
+				log.Errorf(err, "Exit(restart)")
 			}
 		}
 	}()
@@ -93,7 +93,6 @@ func main() {
 	}
 	// 刷新好友列表，群列表
 	bot.RefreshList()
-	
 
 	go func() {
 		for {

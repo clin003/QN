@@ -72,6 +72,8 @@ github.com/Microsoft/go-winio v0.5.1 h1:aPJp2QD7OOrhO5tQXqQoGSJc+DjDtWTGLOmNyAm6
 github.com/Microsoft/go-winio v0.5.1/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
 github.com/Mrs4s/MiraiGo v0.0.0-20211228134823-9d618e2d9f3e h1:r/D03EtHCBsv0lhprX/qCeoHCpFC4l8SJaKRDqBzITk=
 github.com/Mrs4s/MiraiGo v0.0.0-20211228134823-9d618e2d9f3e/go.mod h1:VrmhZC9o+uKB9AKRy5bZZxE5EJwJhAmo7Xn/c2tzkZI=
+github.com/Mrs4s/MiraiGo v0.0.0-20220106125209-41a6cb05a7da h1:3+pYqRh7YyTxeqQL/MK3a39ZhOkxHCFZJsbqNpvkZZA=
+github.com/Mrs4s/MiraiGo v0.0.0-20220106125209-41a6cb05a7da/go.mod h1:VrmhZC9o+uKB9AKRy5bZZxE5EJwJhAmo7Xn/c2tzkZI=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=

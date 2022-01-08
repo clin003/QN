@@ -9,7 +9,7 @@ require (
 	gitee.com/lyhuilin/pkg v0.0.0-20211130013449-31ad67666d59
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Microsoft/go-winio v0.5.1
-	github.com/Mrs4s/MiraiGo v0.0.0-20211228134823-9d618e2d9f3e
+	github.com/Mrs4s/MiraiGo v0.0.0-20220106125209-41a6cb05a7da
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorilla/websocket v1.4.2
 	github.com/pkg/errors v0.9.1

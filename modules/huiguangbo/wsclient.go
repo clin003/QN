@@ -50,7 +50,7 @@ func initWsServer(wsServerUrl, channel string) {
 		for i, v := range cs {
 			v = strings.TrimSpace(v)
 			if len(v) > 0 {
-				log.Infof("激活监听:%d ->(%s) %s", i, wsServerUrl, v)
+				log.Infof("激活监听:%d (%s) %s", i, wsServerUrl, v)
 				go wsClientStart(wsServerUrl, v)
 				time.Sleep(1 * time.Second)
 			}

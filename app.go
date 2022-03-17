@@ -105,10 +105,34 @@ func main() {
 		}
 	}()
 
+	go func() {
+		for {
+			if !bot.Instance.Online.Load() {
+				botid := fmt.Sprintf("%d", bot.Instance.Uin)
+				if viper.GetBool("recover_restart_enable") {
+					log.Infof("检测到机器人 %s 已掉线，尝试重新登录!", botid)
+					// 登录
+					if err := bot.Login(); err != nil {
+						log.Errorf(err, "登录出错了")
+					} else {
+						bot.SaveToken()
+					}
+					// 刷新好友列表，群列表
+					bot.RefreshList()
+				} else {
+					log.Infof("检测到机器人 %s 已掉线，放弃尝试重新登录(如需尝试，请打开 recover_restart_enable 配置 true)!", botid)
+				}
+
+			}
+
+			time.Sleep(10 * time.Minute)
+		}
+	}()
+
 	// <-global.SetupMainSignalHandler()
 
 	ch := make(chan os.Signal, 1)
-	signal.Notify(ch, os.Interrupt, os.Kill)
+	signal.Notify(ch, os.Interrupt)
 	<-ch
 	bot.Stop()
 }

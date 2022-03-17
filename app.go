@@ -107,6 +107,8 @@ func main() {
 
 	go func() {
 		for {
+			time.Sleep(2 * time.Minute)
+
 			if !bot.Instance.Online.Load() {
 				botid := fmt.Sprintf("%d", bot.Instance.Uin)
 				if viper.GetBool("recover_restart_enable") {
@@ -122,9 +124,7 @@ func main() {
 				} else {
 					log.Infof("检测到机器人 %s 已掉线，放弃尝试重新登录(如需尝试，请打开 recover_restart_enable 配置 true)!", botid)
 				}
-
 			}
-
 			time.Sleep(10 * time.Minute)
 		}
 	}()

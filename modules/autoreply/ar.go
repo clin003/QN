@@ -94,7 +94,7 @@ func (a *ar) PostInit() {
 // 	})
 // }
 func (a *ar) Serve(b *bot.Bot) {
-	b.OnGroupMessage(func(c *client.QQClient, msg *message.GroupMessage) {
+	b.GroupMessageEvent.Subscribe(func(c *client.QQClient, msg *message.GroupMessage) {
 		out := autoreply(msg.ToString())
 		if out == "" {
 			return
@@ -123,7 +123,7 @@ func (a *ar) Serve(b *bot.Bot) {
 		c.SendGroupMessage(msg.GroupCode, m)
 	})
 
-	b.OnPrivateMessage(func(c *client.QQClient, msg *message.PrivateMessage) {
+	b.PrivateMessageEvent.Subscribe(func(c *client.QQClient, msg *message.PrivateMessage) {
 		out := autoreply(msg.ToString())
 		if out == "" {
 			return

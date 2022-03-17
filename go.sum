@@ -74,11 +74,15 @@ github.com/Microsoft/go-winio v0.5.1 h1:aPJp2QD7OOrhO5tQXqQoGSJc+DjDtWTGLOmNyAm6
 github.com/Microsoft/go-winio v0.5.1/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
 github.com/Mrs4s/MiraiGo v0.0.0-20220117165008-3b461554b747 h1:i9IcyQOVc3eYHXAXgTAMsEdAcGkxpbjBEvVb87z50ZA=
 github.com/Mrs4s/MiraiGo v0.0.0-20220117165008-3b461554b747/go.mod h1:rtKLkhMEi2YjsrXaNztT4uagUOPBxf6a+TNREkG097I=
+github.com/Mrs4s/MiraiGo v0.0.0-20220317085941-f7ced299d9ce h1:wABBeAh0zw7RNTBmKbFgXkPrzmSWrNEyfnR4FkQE6rM=
+github.com/Mrs4s/MiraiGo v0.0.0-20220317085941-f7ced299d9ce/go.mod h1:qJWkRO5vry/sUHthX5kh6go2llYIVAJ+Mq8p+N/FW+8=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
 github.com/RomiChan/protobuf v0.0.0-20211223055824-048df49a8956 h1:hnaAkKz4t+xpSNVp5mnuloRMd3Rj2Lfg5biZ3emv//c=
 github.com/RomiChan/protobuf v0.0.0-20211223055824-048df49a8956/go.mod h1:CKKOWC7mBxd36zxsCB1V8DTrwlTNRQvkSVbYqyUiGEE=
+github.com/RomiChan/protobuf v0.0.0-20220227114948-643565fff248 h1:1jRB6xuBKwfgZrg0bA7XJin0VeNwG9iJKx9RXwDobt4=
+github.com/RomiChan/protobuf v0.0.0-20220227114948-643565fff248/go.mod h1:CKKOWC7mBxd36zxsCB1V8DTrwlTNRQvkSVbYqyUiGEE=
 github.com/StackExchange/wmi v1.2.1/go.mod h1:rcmrprowKIVzvc+NUiLncP2uuArMWLCbu9SBzvHz7e8=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=

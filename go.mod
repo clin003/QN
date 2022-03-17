@@ -9,7 +9,7 @@ require (
 	gitee.com/lyhuilin/pkg v0.0.0-20220112125313-2ffa157e0020
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Microsoft/go-winio v0.5.1
-	github.com/Mrs4s/MiraiGo v0.0.0-20220117165008-3b461554b747
+	github.com/Mrs4s/MiraiGo v0.0.0-20220317085941-f7ced299d9ce
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorilla/websocket v1.4.2
 	github.com/pkg/errors v0.9.1
@@ -19,7 +19,7 @@ require (
 )
 
 require (
-	github.com/RomiChan/protobuf v0.0.0-20211223055824-048df49a8956 // indirect
+	github.com/RomiChan/protobuf v0.0.0-20220227114948-643565fff248 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/fumiama/imgsz v0.0.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect

@@ -69,7 +69,7 @@ func (a *system) Serve(b *bot.Bot) {
 
 	// })
 
-	b.OnPrivateMessage(func(c *client.QQClient, msg *message.PrivateMessage) {
+	b.PrivateMessageEvent.Subscribe(func(c *client.QQClient, msg *message.PrivateMessage) {
 		// fmt.Printf("message=%+v\n", msg.ToString())
 		if botObj := bot.Instance; botObj == nil {
 			// 机器人已下线，直接结束回复流程

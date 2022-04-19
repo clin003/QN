@@ -9,7 +9,7 @@ require (
 	gitee.com/lyhuilin/pkg v0.0.0-20220112125313-2ffa157e0020
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Microsoft/go-winio v0.5.1
-	github.com/Mrs4s/MiraiGo v0.0.0-20220317085941-f7ced299d9ce
+	github.com/Mrs4s/MiraiGo v0.0.0-20220414133704-1b7e3d85807b
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorilla/websocket v1.4.2
 	github.com/pkg/errors v0.9.1
@@ -19,7 +19,8 @@ require (
 )
 
 require (
-	github.com/RomiChan/protobuf v0.0.0-20220227114948-643565fff248 // indirect
+	github.com/RomiChan/protobuf v0.0.0-20220318113238-d8a99598f896 // indirect
+	github.com/RomiChan/syncx v0.0.0-20220404072119-d7ea0ae15a4c // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/fumiama/imgsz v0.0.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -52,13 +53,13 @@ require (
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.17.0 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
-	github.com/pierrec/lz4/v4 v4.1.12 // indirect
+	github.com/pierrec/lz4/v4 v4.1.14 // indirect
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e // indirect
 	github.com/spf13/afero v1.8.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/tidwall/gjson v1.13.0 // indirect
+	github.com/tidwall/gjson v1.14.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect

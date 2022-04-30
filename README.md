@@ -1,25 +1,25 @@
-# MiraiGo-Template
+# QN
 
-A template for MiraiGo
+QN是一个基于MiraiGO的QQ群推送机器人，支持慧转发PRO消息推送。
 
-> v2 版本正在重写，请提出 *你的想法* 或 *你对当前设计的不满* 
-> 本菜鸡会尽量改 
+*QN不是一个聊天机器人。*
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/Logiase/MiraiGo-Template)](https://goreportcard.com/report/github.com/Logiase/MiraiGo-Template)
+## 设计理念
 
-基于 [MiraiGo](https://github.com/Mrs4s/MiraiGo) 的多模块组合设计
+制作bot的本意是为了减轻一些重复的工作负担，bot只会做好bot份内的工作：
 
-包装了基础功能,同时设计了一个~~良好~~的项目结构
+- QN只有两种情况会主动发言，更新动态和直播，以及答复命令结果。
 
-## 不了解go?
+## **基本功能：**
 
-golang 极速入门
-
-[点我看书](https://github.com/justjavac/free-programming-books-zh_CN#go)
+- **慧转发PRO/动态推送**
+    - 慧转发支持按关键字过滤，只推送有关键字的动态。
+- **在线状态查询**
+    - 输出一些没什么帮助的信息。
 
 ## 基础配置
 
-账号配置[application.yaml](./application.yaml)
+账号配置[conf/config.yaml](./conf/config.yaml)
 ```yaml
 bot:
   # 账号
@@ -28,109 +28,34 @@ bot:
   password: example
 ```
 
-## Module 配置
+## 常见问题FAQ
 
-module参考[log.go](./modules/logging/log.go)
+提问前请先查看[FAQ文档](/FAQ.md)，如果仍然未能解决，请咨询唯一指定交流群。
 
-```go
-package mymodule
+## 注意事项
 
-import (
-    "aaa"
-    "bbb"
-    "MiraiGo-Template/bot"
-)
+- **bot只在群聊内工作，但命令可以私聊使用，以避免在群内刷屏**（少数次要娱乐命令暂不支持，详细列表请看用法指南）
+- **您应当知道，bot账号可以人工登陆，请注意个人隐私**
+- bot掉线无法重连时将自动退出，请自行实现保活机制
 
-var instance *Logging
+## 声明
 
-func init() {
-	instance = &Logging{}
-	bot.RegisterModule(instance)
-}
+- 您可以免费使用QN进行其他商业活动，但不允许通过出租、出售QN等方式进行商业活动。
+- 如果您运营了私人部署的QN，可以接受他人对您私人部署的QN进行捐赠以帮助QN运行，但该过程必须本着自愿的原则，不允许用QN使用权来强制他人进行捐赠。
+- 如果您使用了QN的源代码，或者对QN源代码进行修改，您应该用相同的开源许可（AGPL3.0）进行开源，并标明著作权。
 
-type Logging struct {
-}
 
-// ...
-```
+## 贡献
 
-编写自己的Module后在[app.go](./app.go)中启用Module 
+*Feel free to make your first pull request.*
 
-```go
-package main
+QN使用 [MiraiGO-Template](https://github.com/Logiase/MiraiGo-Template) 进行开发，如果您使用了该框架，您可以将QN嵌入您的程序里。
 
-import (
-    // ...
-    
-    _ "modules/mymodule"
-)
+## 赞助
 
-// ...
-```
+（排名按时间先后顺序）
 
-## 快速入门
+|赞助者|渠道|金额|
+|-----|----|----|
 
-你可以克隆本项目, 或者将本项目作为依赖.
 
-在开始之前, 你需要首先生成设备文件.
-
-新建文件 `tools_test.go` , 内容如下:
-
-```go
-package main_test
-
-import (
-	"testing"
-
-	"github.com/Logiase/MiraiGo-Template/bot"
-)
-
-func TestGenDevice(t *testing.T) {
-	bot.GenRandomDevice()
-}
-```
-
-然后运行 `TestGenDevice` 来生成一份设备文件
-
-### 克隆
-
-如果你克隆本项目, 请首先更新项目依赖, 同步到协议库最新版本, 否则可能出现某些意外的bug ( 或产生新的bug )
-
-```go
-go get -u
-```
-
-### 将 [MiraiGo-Template](https://github.com/Logiase/MiraiGo-Template) 作为go module使用
-
-可参考当前 [app.go](./app.go) 将其引入
-
-使用这种方法可以引入其他小伙伴编写的第三方module
-
-## 内置 Module
-
- - internal.logging
- 将收到的消息按照格式输出至 os.stdout
-
-## 第三方 Module
-
-欢迎PR
-
- - [logiase.autoreply](https://github.com/Logiase/MiraiGo-module-autoreply)
- 按照收到的消息进行回复
- 
-## 进阶内容 
-
-### Docker 支持
-
-参照 [Dockerfile](./Dockerfile)
-
-## 引入的第三方 go module
-
- - [MiraiGo](https://github.com/Mrs4s/MiraiGo)
-    核心协议库
- - [viper](https://github.com/spf13/viper)
-    用于解析配置文件，同时可监听配置文件的修改
- - [logrus](github.com/sirupsen/logrus)
-    功能丰富的Logger
- - [asciiart](github.com/yinghau76/go-ascii-art)
-    用于在console显示图形验证码

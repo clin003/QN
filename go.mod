@@ -9,7 +9,7 @@ require (
 	gitee.com/lyhuilin/pkg v0.0.0-20220112125313-2ffa157e0020
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Microsoft/go-winio v0.5.1
-	github.com/Mrs4s/MiraiGo v0.0.0-20220414133704-1b7e3d85807b
+	github.com/Mrs4s/MiraiGo v0.0.0-20220428155502-a4cf95f79352
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorilla/websocket v1.4.2
 	github.com/pkg/errors v0.9.1
@@ -59,7 +59,7 @@ require (
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/tidwall/gjson v1.14.0 // indirect
+	github.com/tidwall/gjson v1.14.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect

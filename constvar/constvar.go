@@ -35,7 +35,7 @@ Q:::::::QQ::::::::Q N::::::N      N::::::::N
 `
 
 	APP_NAME    = "QN"
-	APP_VERSION = "0.5.10"
+	APP_VERSION = "0.5.11"
 )
 
 func APPDesc() string {

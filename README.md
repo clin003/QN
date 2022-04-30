@@ -19,7 +19,7 @@ QN是一个基于MiraiGO的QQ群推送机器人，支持慧转发PRO消息推送
 
 ## 基础配置
 
-账号配置[conf/config.yaml](./conf/config.yaml)
+账号配置[conf/config.yaml](./conf/config.simple.yaml)
 ```yaml
 bot:
   # 账号

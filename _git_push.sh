@@ -8,4 +8,4 @@ git push -u gitee main
 
 #git remote add github git@github.com:clin003/QN.git
 #git branch -M main
-#git push -u github main
+git push -u github main

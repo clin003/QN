@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	gitee.com/lyhuilin/log v0.0.0-20210402052422-bfc045fae7b8
-	gitee.com/lyhuilin/model v0.0.0-20220108070838-938055571344
+	gitee.com/lyhuilin/model v0.0.0-20220502142314-982ae8c2fd03
 	gitee.com/lyhuilin/my_admin v0.0.0-20220120144434-2c64e32d623f
 	gitee.com/lyhuilin/pkg v0.0.0-20220112125313-2ffa157e0020
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c

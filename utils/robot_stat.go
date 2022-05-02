@@ -20,7 +20,8 @@ import (
 
 	"gitee.com/lyhuilin/QN/constvar"
 
-	"gitee.com/lyhuilin/my_admin/model/bot"
+	// "gitee.com/lyhuilin/my_admin/model/bot"
+	"gitee.com/lyhuilin/model/bot"
 	"gitee.com/lyhuilin/util"
 	"github.com/spf13/viper"
 )

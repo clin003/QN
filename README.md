@@ -1,23 +1,23 @@
-# QN
+# 	QN
 
 QN是一个基于MiraiGO的QQ群推送机器人，支持慧转发PRO消息推送。
 
 *QN不是一个聊天机器人。*
 
-## 设计理念
+## 	设计理念
 
 制作bot的本意是为了减轻一些重复的工作负担，bot只会做好bot份内的工作：
 
 - QN只有两种情况会主动发言，更新动态和直播，以及答复命令结果。
 
-## **基本功能：**
+## 	**基本功能：**
 
 - **慧转发PRO/动态推送**
     - 慧转发支持按关键字过滤，只推送有关键字的动态。
 - **在线状态查询**
     - 输出一些没什么帮助的信息。
 
-## 基础配置
+## 	基础配置
 
 账号配置[conf/config.yaml](./conf/config.simple.yaml)
 ```yaml
@@ -28,7 +28,15 @@ bot:
   password: example
 ```
 
-## 常见问题FAQ
+##	简单使用方法
+要求环境：git+golang
+```
+	git clone https://github.com/clin003/QN.git
+	cd QN 
+	go build
+```
+
+## 	常见问题FAQ
 
 提问前请先查看[FAQ文档](/FAQ.md)，如果仍然未能解决，请咨询唯一指定交流群。
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#go get -u github.com/Mrs4s/MiraiGo/binary
 #go get -u github.com/Mrs4s/MiraiGo/client
 
 git add .

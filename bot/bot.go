@@ -5,27 +5,20 @@ import (
 
 	"gitee.com/lyhuilin/QN/env"
 
-	// "bytes"
-	// "fmt"
-	// "image"
 	"io/ioutil"
 	"os"
 	"strings"
 	"sync"
 	"time"
 
-	// asc2art "github.com/yinghau76/go-ascii-art"
-
 	"gitee.com/lyhuilin/log"
 	"gitee.com/lyhuilin/pkg/qr"
 	"gitee.com/lyhuilin/util"
 
-	// qrcodeTerminal "github.com/Baozisoftware/qrcode-terminal-go"
 	"github.com/Mrs4s/MiraiGo/binary"
 	"github.com/Mrs4s/MiraiGo/client"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
-	// "github.com/tuotoo/qrcode"
 )
 
 // Bot 全局 Bot

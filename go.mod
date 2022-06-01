@@ -5,11 +5,10 @@ go 1.17
 require (
 	gitee.com/lyhuilin/log v0.0.0-20210402052422-bfc045fae7b8
 	gitee.com/lyhuilin/model v0.0.0-20220502142314-982ae8c2fd03
-	gitee.com/lyhuilin/my_admin v0.0.0-20220120144434-2c64e32d623f
 	gitee.com/lyhuilin/pkg v0.0.0-20220112125313-2ffa157e0020
 	gitee.com/lyhuilin/util v0.0.0-20211205061428-a527ece6e31c
 	github.com/Microsoft/go-winio v0.5.1
-	github.com/Mrs4s/MiraiGo v0.0.0-20220428155502-a4cf95f79352
+	github.com/Mrs4s/MiraiGo v0.0.0-20220524053130-007f228e1092
 	github.com/gin-gonic/gin v1.7.7
 	github.com/gorilla/websocket v1.4.2
 	github.com/pkg/errors v0.9.1
@@ -19,7 +18,7 @@ require (
 )
 
 require (
-	github.com/RomiChan/protobuf v0.0.0-20220318113238-d8a99598f896 // indirect
+	github.com/RomiChan/protobuf v0.1.1-0.20220524030518-4f349493f9da // indirect
 	github.com/RomiChan/syncx v0.0.0-20220404072119-d7ea0ae15a4c // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/fumiama/imgsz v0.0.2 // indirect
@@ -41,7 +40,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.14.2 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/makiuchi-d/gozxing v0.1.1 // indirect
@@ -65,11 +63,11 @@ require (
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sync v0.0.0-20220513210516-0976fa681c29 // indirect
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/ini.v1 v1.66.3 // indirect
 	gorm.io/driver/mysql v1.2.3 // indirect
 	gorm.io/driver/postgres v1.2.3 // indirect
